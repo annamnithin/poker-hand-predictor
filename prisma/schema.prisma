@@ -1,0 +1,80 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  name      String   @default("Default Player")
+  settings  Json     @default("{}")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  hands HandScenario[]
+}
+
+model HandScenario {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+
+  // Core scenario fields
+  street          String   // preflop | flop | turn | river
+  heroCards       String[] // e.g. ["Ah", "Kd"]
+  boardCards      String[] // e.g. ["Ts", "9c", "2h"]
+  totalPlayers    Int
+  heroPosition    String   // UTG | CO | BTN | SB | BB
+  potSize         Float
+  amountToCall    Float
+  heroStack       Float
+  villainStack    Float
+  opponentsLeft   Int
+
+  // Opponent modeling
+  opponentStyle   String   @default("unknown") // TAG | LAG | tight-passive | loose-passive | unknown
+  opponentRange   String?  // optional explicit range label
+
+  // Action history stored as JSON array of ActionHistoryEntry
+  actionHistory   Json     @default("[]")
+
+  // The generated recommendation
+  recommendation  Recommendation?
+
+  // Metadata
+  notes     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+  @@index([street])
+  @@index([heroPosition])
+}
+
+model Recommendation {
+  id              String   @id @default(cuid())
+  handScenarioId  String   @unique
+  handScenario    HandScenario @relation(fields: [handScenarioId], references: [id], onDelete: Cascade)
+
+  recommendedAction String  // fold | call | raise
+  raiseSizing       Float?  // recommended raise amount if action is raise
+
+  evFold            Float
+  evCall            Float
+  evRaise           Float
+
+  confidence        Int     // 0-100
+  explanation       String  // human readable explanation
+
+  // Detailed breakdown stored as JSON
+  breakdown         Json    @default("{}")
+
+  // Abstraction mapping info
+  abstractionNode   String? // which node was matched
+  mappingQuality    Float   @default(1.0) // 0-1, how well scenario maps to abstraction
+
+  createdAt         DateTime @default(now())
+}
