@@ -2,7 +2,7 @@ import { getHand } from '@/server/repositories/hand-repository';
 import { ResultPanel } from '@/components/poker/result-panel';
 import { Card, CardContent } from '@/components/ui/card';
 import Link from 'next/link';
-import type { HandScenarioInput, RecommendationResult, Card as CardType, ActionHistoryEntry, EVBreakdown, OpponentProfile } from '@/lib/domain/types';
+import type { HandScenarioInput, RecommendationResult, Card as CardType, ActionHistoryEntry, EVBreakdown, OpponentProfile, EVResult } from '@/lib/domain/types';
 
 export default async function HandDetailPage({
   params,
@@ -52,9 +52,13 @@ export default async function HandDetailPage({
       evFold: rec.evFold,
       evCall: rec.evCall,
       evRaise: rec.evRaise,
-      bestAction: rec.recommendedAction as 'fold' | 'call' | 'raise',
+      evCheck: 0,
+      evBet: 0,
+      bestAction: rec.recommendedAction as EVResult['bestAction'],
       bestRaiseSizing: rec.raiseSizing,
       bestRaiseFraction: null,
+      bestBetSizing: null,
+      bestBetFraction: null,
     },
     confidence: rec.confidence,
     explanation: rec.explanation,
