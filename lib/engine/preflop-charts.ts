@@ -193,8 +193,7 @@ export const THREE_BET_RANGES: Record<Position, Record<Position, Record<string, 
     UTG: { AA: 1, KK: 1, QQ: 1, AKs: 1, AKo: 1, AQs: 0.8, JJ: 0.7, AQo: 0.5, A5s: 0.7, KQs: 0.5 },
     HJ: { AA: 1, KK: 1, QQ: 1, AKs: 1, AKo: 1, AQs: 0.9, JJ: 0.8, AQo: 0.6, A5s: 0.8, KQs: 0.6, TT: 0.5 },
     CO: { AA: 1, KK: 1, QQ: 1, JJ: 0.9, AKs: 1, AKo: 1, AQs: 1, AQo: 0.75, A5s: 0.9, A4s: 0.6, KQs: 0.7, TT: 0.65 },
-    BTN: {}, // BTN vs BTN doesn't apply
-    SB: {}, CO: {}, HJ: {}, MP: {}, 'UTG+1': {}, 'UTG+2': {}, BB: {},
+    BTN: {}, SB: {}, MP: {}, 'UTG+1': {}, 'UTG+2': {}, BB: {}, // BTN vs BTN/CO/HJ handled above
   },
   CO: {
     UTG: { AA: 1, KK: 1, QQ: 1, AKs: 1, AKo: 1, AQs: 0.7 },
@@ -206,7 +205,7 @@ export const THREE_BET_RANGES: Record<Position, Record<Position, Record<string, 
     CO: { AA: 1, KK: 1, QQ: 1, JJ: 0.7, AKs: 1, AQs: 0.9, AKo: 1, A5s: 0.8 },
     HJ: { AA: 1, KK: 1, QQ: 1, AKs: 1, AKo: 1, A5s: 0.7 },
     UTG: { AA: 1, KK: 1, QQ: 1, AKs: 1, AKo: 1 },
-    SB: {}, BTN: {}, MP: {}, 'UTG+1': {}, 'UTG+2': {}, BB: {},
+    SB: {}, MP: {}, 'UTG+1': {}, 'UTG+2': {}, BB: {},
   },
   BB: {
     BTN: { AA: 1, KK: 1, QQ: 1, JJ: 0.85, TT: 0.65, AKs: 1, AQs: 1, AJs: 0.85, AKo: 1, AQo: 0.85, KQs: 0.75, A5s: 1, A4s: 0.8, A3s: 0.7, '98s': 0.5, '87s': 0.5 },
