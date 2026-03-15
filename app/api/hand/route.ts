@@ -3,6 +3,7 @@ import { HandScenarioInputSchema } from '@/lib/domain/schemas';
 import { validateHandScenario } from '@/lib/validation/validate-scenario';
 import { generateRecommendation } from '@/lib/engine/recommend';
 import { saveHandWithRecommendation } from '@/server/repositories/hand-repository';
+import type { HandScenarioInput } from '@/lib/domain/types';
 
 export async function POST(req: NextRequest) {
   try {
@@ -16,7 +17,11 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const domainErrors = validateHandScenario(parsed.data);
+    // Zod's transform inside superRefine widens card fields back to string;
+    // casting is safe because CardSchema already validates each card value.
+    const scenario = parsed.data as HandScenarioInput;
+
+    const domainErrors = validateHandScenario(scenario);
     if (domainErrors.length > 0) {
       return NextResponse.json(
         { error: 'Invalid hand scenario', details: domainErrors },
@@ -25,8 +30,8 @@ export async function POST(req: NextRequest) {
     }
 
     // Generate recommendation and save together
-    const recommendation = generateRecommendation(parsed.data);
-    const saved = await saveHandWithRecommendation(parsed.data, recommendation);
+    const recommendation = generateRecommendation(scenario);
+    const saved = await saveHandWithRecommendation(scenario, recommendation);
 
     return NextResponse.json({ hand: saved }, { status: 201 });
   } catch (err) {
