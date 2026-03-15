@@ -177,12 +177,12 @@ export function ResultPanel({ result, input, onSave, saving }: ResultPanelProps)
           onClick={onSave}
           disabled={saving}
           className={cn(
-            'w-full py-3 rounded-xl font-medium text-sm transition-all',
-            'bg-slate-900 text-white hover:bg-slate-800',
+            'w-full py-3.5 rounded-xl font-semibold text-sm transition-all',
+            'bg-emerald-600 text-white hover:bg-emerald-700 shadow-md shadow-emerald-200',
             'disabled:opacity-50 disabled:cursor-not-allowed'
           )}
         >
-          {saving ? 'Saving...' : 'Save Hand'}
+          {saving ? 'Saving...' : '💾 Save to Hand History'}
         </button>
       )}
     </div>

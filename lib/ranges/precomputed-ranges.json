@@ -1,440 +1,4405 @@
 {
-  "version": "1.0.0",
-  "description": "Sample precomputed range abstractions for MVP. Replace with real solver exports.",
+  "version": "2.0.0",
+  "description": "Comprehensive precomputed range abstractions covering all positions and multiple stack depths.",
   "ranges": [
     {
       "id": "btn-open-100bb",
-      "label": "BTN Open Range (100bb)",
+      "label": "BTN Open (100bb)",
       "position": "BTN",
       "street": "preflop",
       "actionLine": "open",
       "stackBucket": 100,
       "hands": [
-        { "hand": "AA", "frequency": 1.0 },
-        { "hand": "KK", "frequency": 1.0 },
-        { "hand": "QQ", "frequency": 1.0 },
-        { "hand": "JJ", "frequency": 1.0 },
-        { "hand": "TT", "frequency": 1.0 },
-        { "hand": "99", "frequency": 1.0 },
-        { "hand": "88", "frequency": 1.0 },
-        { "hand": "77", "frequency": 1.0 },
-        { "hand": "66", "frequency": 0.95 },
-        { "hand": "55", "frequency": 0.90 },
-        { "hand": "44", "frequency": 0.85 },
-        { "hand": "33", "frequency": 0.80 },
-        { "hand": "22", "frequency": 0.75 },
-        { "hand": "AKs", "frequency": 1.0 },
-        { "hand": "AKo", "frequency": 1.0 },
-        { "hand": "AQs", "frequency": 1.0 },
-        { "hand": "AQo", "frequency": 1.0 },
-        { "hand": "AJs", "frequency": 1.0 },
-        { "hand": "AJo", "frequency": 1.0 },
-        { "hand": "ATs", "frequency": 1.0 },
-        { "hand": "ATo", "frequency": 0.95 },
-        { "hand": "A9s", "frequency": 1.0 },
-        { "hand": "A8s", "frequency": 1.0 },
-        { "hand": "A7s", "frequency": 0.95 },
-        { "hand": "A6s", "frequency": 0.90 },
-        { "hand": "A5s", "frequency": 1.0 },
-        { "hand": "A4s", "frequency": 0.95 },
-        { "hand": "A3s", "frequency": 0.90 },
-        { "hand": "A2s", "frequency": 0.85 },
-        { "hand": "KQs", "frequency": 1.0 },
-        { "hand": "KQo", "frequency": 1.0 },
-        { "hand": "KJs", "frequency": 1.0 },
-        { "hand": "KJo", "frequency": 0.95 },
-        { "hand": "KTs", "frequency": 1.0 },
-        { "hand": "KTo", "frequency": 0.90 },
-        { "hand": "K9s", "frequency": 0.95 },
-        { "hand": "K8s", "frequency": 0.80 },
-        { "hand": "K7s", "frequency": 0.75 },
-        { "hand": "K6s", "frequency": 0.70 },
-        { "hand": "K5s", "frequency": 0.65 },
-        { "hand": "QJs", "frequency": 1.0 },
-        { "hand": "QJo", "frequency": 0.95 },
-        { "hand": "QTs", "frequency": 1.0 },
-        { "hand": "QTo", "frequency": 0.85 },
-        { "hand": "Q9s", "frequency": 0.90 },
-        { "hand": "JTs", "frequency": 1.0 },
-        { "hand": "JTo", "frequency": 0.85 },
-        { "hand": "J9s", "frequency": 0.90 },
-        { "hand": "T9s", "frequency": 1.0 },
-        { "hand": "T8s", "frequency": 0.85 },
-        { "hand": "98s", "frequency": 1.0 },
-        { "hand": "97s", "frequency": 0.80 },
-        { "hand": "87s", "frequency": 1.0 },
-        { "hand": "76s", "frequency": 0.95 },
-        { "hand": "65s", "frequency": 0.90 },
-        { "hand": "54s", "frequency": 0.85 }
+        {
+          "hand": "AA",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KK",
+          "frequency": 1.0
+        },
+        {
+          "hand": "QQ",
+          "frequency": 1.0
+        },
+        {
+          "hand": "JJ",
+          "frequency": 1.0
+        },
+        {
+          "hand": "TT",
+          "frequency": 1.0
+        },
+        {
+          "hand": "99",
+          "frequency": 1.0
+        },
+        {
+          "hand": "88",
+          "frequency": 1.0
+        },
+        {
+          "hand": "77",
+          "frequency": 1.0
+        },
+        {
+          "hand": "66",
+          "frequency": 1.0
+        },
+        {
+          "hand": "55",
+          "frequency": 1.0
+        },
+        {
+          "hand": "44",
+          "frequency": 1.0
+        },
+        {
+          "hand": "33",
+          "frequency": 1.0
+        },
+        {
+          "hand": "22",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AKs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AQs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AJs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "ATs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A9s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A8s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A7s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A6s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A5s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A4s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A3s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A2s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KQs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KJs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KTs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "K9s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "K8s",
+          "frequency": 0.75
+        },
+        {
+          "hand": "K7s",
+          "frequency": 0.75
+        },
+        {
+          "hand": "K6s",
+          "frequency": 0.75
+        },
+        {
+          "hand": "K5s",
+          "frequency": 0.75
+        },
+        {
+          "hand": "QJs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "QTs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "Q9s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "Q8s",
+          "frequency": 0.75
+        },
+        {
+          "hand": "JTs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "J9s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "J8s",
+          "frequency": 0.75
+        },
+        {
+          "hand": "T9s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "T8s",
+          "frequency": 0.75
+        },
+        {
+          "hand": "98s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "87s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "76s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "65s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "54s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "43s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AKo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AQo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AJo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "ATo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A9o",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A8o",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A7o",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KQo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KJo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KTo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "QJo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "QTo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "JTo",
+          "frequency": 1.0
+        }
+      ]
+    },
+    {
+      "id": "btn-open-60bb",
+      "label": "BTN Open (60bb)",
+      "position": "BTN",
+      "street": "preflop",
+      "actionLine": "open",
+      "stackBucket": 60,
+      "hands": [
+        {
+          "hand": "AA",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KK",
+          "frequency": 1.0
+        },
+        {
+          "hand": "QQ",
+          "frequency": 1.0
+        },
+        {
+          "hand": "JJ",
+          "frequency": 1.0
+        },
+        {
+          "hand": "TT",
+          "frequency": 1.0
+        },
+        {
+          "hand": "99",
+          "frequency": 1.0
+        },
+        {
+          "hand": "88",
+          "frequency": 1.0
+        },
+        {
+          "hand": "77",
+          "frequency": 1.0
+        },
+        {
+          "hand": "66",
+          "frequency": 1.0
+        },
+        {
+          "hand": "55",
+          "frequency": 1.0
+        },
+        {
+          "hand": "44",
+          "frequency": 1.0
+        },
+        {
+          "hand": "33",
+          "frequency": 1.0
+        },
+        {
+          "hand": "22",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AKs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AQs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AJs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "ATs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A9s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A8s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A7s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A6s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A5s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A4s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A3s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KQs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KJs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KTs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "K9s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "K8s",
+          "frequency": 0.75
+        },
+        {
+          "hand": "QJs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "QTs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "Q9s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "JTs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "J9s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "T9s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "T8s",
+          "frequency": 0.75
+        },
+        {
+          "hand": "98s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "87s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "76s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "65s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "54s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AKo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AQo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AJo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "ATo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A9o",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A8o",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KQo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KJo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KTo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "QJo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "QTo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "JTo",
+          "frequency": 1.0
+        }
+      ]
+    },
+    {
+      "id": "btn-open-40bb",
+      "label": "BTN Open (40bb)",
+      "position": "BTN",
+      "street": "preflop",
+      "actionLine": "open",
+      "stackBucket": 40,
+      "hands": [
+        {
+          "hand": "AA",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KK",
+          "frequency": 1.0
+        },
+        {
+          "hand": "QQ",
+          "frequency": 1.0
+        },
+        {
+          "hand": "JJ",
+          "frequency": 1.0
+        },
+        {
+          "hand": "TT",
+          "frequency": 1.0
+        },
+        {
+          "hand": "99",
+          "frequency": 1.0
+        },
+        {
+          "hand": "88",
+          "frequency": 1.0
+        },
+        {
+          "hand": "77",
+          "frequency": 1.0
+        },
+        {
+          "hand": "66",
+          "frequency": 1.0
+        },
+        {
+          "hand": "55",
+          "frequency": 1.0
+        },
+        {
+          "hand": "44",
+          "frequency": 1.0
+        },
+        {
+          "hand": "33",
+          "frequency": 1.0
+        },
+        {
+          "hand": "22",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AKs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AQs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AJs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "ATs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A9s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A8s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A7s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A5s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KQs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KJs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KTs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "QJs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "QTs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "JTs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "98s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AKo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AQo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AJo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "ATo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A9o",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KQo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KJo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "QJo",
+          "frequency": 1.0
+        }
+      ]
+    },
+    {
+      "id": "btn-open-150bb",
+      "label": "BTN Open (150bb)",
+      "position": "BTN",
+      "street": "preflop",
+      "actionLine": "open",
+      "stackBucket": 150,
+      "hands": [
+        {
+          "hand": "AA",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KK",
+          "frequency": 1.0
+        },
+        {
+          "hand": "QQ",
+          "frequency": 1.0
+        },
+        {
+          "hand": "JJ",
+          "frequency": 1.0
+        },
+        {
+          "hand": "TT",
+          "frequency": 1.0
+        },
+        {
+          "hand": "99",
+          "frequency": 1.0
+        },
+        {
+          "hand": "88",
+          "frequency": 1.0
+        },
+        {
+          "hand": "77",
+          "frequency": 1.0
+        },
+        {
+          "hand": "66",
+          "frequency": 1.0
+        },
+        {
+          "hand": "55",
+          "frequency": 1.0
+        },
+        {
+          "hand": "44",
+          "frequency": 1.0
+        },
+        {
+          "hand": "33",
+          "frequency": 1.0
+        },
+        {
+          "hand": "22",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AKs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AQs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AJs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "ATs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A9s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A8s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A7s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A6s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A5s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A4s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A3s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A2s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KQs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KJs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KTs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "K9s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "K8s",
+          "frequency": 0.75
+        },
+        {
+          "hand": "K7s",
+          "frequency": 0.75
+        },
+        {
+          "hand": "K6s",
+          "frequency": 0.75
+        },
+        {
+          "hand": "K5s",
+          "frequency": 0.75
+        },
+        {
+          "hand": "K4s",
+          "frequency": 0.75
+        },
+        {
+          "hand": "QJs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "QTs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "Q9s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "Q8s",
+          "frequency": 0.75
+        },
+        {
+          "hand": "JTs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "J9s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "J8s",
+          "frequency": 0.75
+        },
+        {
+          "hand": "J7s",
+          "frequency": 0.75
+        },
+        {
+          "hand": "T9s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "T8s",
+          "frequency": 0.75
+        },
+        {
+          "hand": "T7s",
+          "frequency": 0.75
+        },
+        {
+          "hand": "98s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "97s",
+          "frequency": 0.75
+        },
+        {
+          "hand": "87s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "86s",
+          "frequency": 0.75
+        },
+        {
+          "hand": "76s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "75s",
+          "frequency": 0.75
+        },
+        {
+          "hand": "65s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "64s",
+          "frequency": 0.75
+        },
+        {
+          "hand": "54s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "53s",
+          "frequency": 0.75
+        },
+        {
+          "hand": "43s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AKo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AQo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AJo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "ATo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A9o",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A8o",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A7o",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KQo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KJo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KTo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "QJo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "QTo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "JTo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "T9o",
+          "frequency": 0.75
+        }
       ]
     },
     {
       "id": "co-open-100bb",
-      "label": "CO Open Range (100bb)",
+      "label": "CO Open (100bb)",
       "position": "CO",
       "street": "preflop",
       "actionLine": "open",
       "stackBucket": 100,
       "hands": [
-        { "hand": "AA", "frequency": 1.0 },
-        { "hand": "KK", "frequency": 1.0 },
-        { "hand": "QQ", "frequency": 1.0 },
-        { "hand": "JJ", "frequency": 1.0 },
-        { "hand": "TT", "frequency": 1.0 },
-        { "hand": "99", "frequency": 1.0 },
-        { "hand": "88", "frequency": 1.0 },
-        { "hand": "77", "frequency": 0.95 },
-        { "hand": "66", "frequency": 0.85 },
-        { "hand": "55", "frequency": 0.75 },
-        { "hand": "44", "frequency": 0.65 },
-        { "hand": "AKs", "frequency": 1.0 },
-        { "hand": "AKo", "frequency": 1.0 },
-        { "hand": "AQs", "frequency": 1.0 },
-        { "hand": "AQo", "frequency": 1.0 },
-        { "hand": "AJs", "frequency": 1.0 },
-        { "hand": "AJo", "frequency": 0.95 },
-        { "hand": "ATs", "frequency": 1.0 },
-        { "hand": "ATo", "frequency": 0.85 },
-        { "hand": "A9s", "frequency": 0.95 },
-        { "hand": "A8s", "frequency": 0.90 },
-        { "hand": "A5s", "frequency": 0.95 },
-        { "hand": "A4s", "frequency": 0.85 },
-        { "hand": "KQs", "frequency": 1.0 },
-        { "hand": "KQo", "frequency": 1.0 },
-        { "hand": "KJs", "frequency": 1.0 },
-        { "hand": "KJo", "frequency": 0.85 },
-        { "hand": "KTs", "frequency": 1.0 },
-        { "hand": "QJs", "frequency": 1.0 },
-        { "hand": "QTs", "frequency": 0.95 },
-        { "hand": "JTs", "frequency": 1.0 },
-        { "hand": "J9s", "frequency": 0.75 },
-        { "hand": "T9s", "frequency": 0.95 },
-        { "hand": "98s", "frequency": 0.90 },
-        { "hand": "87s", "frequency": 0.85 },
-        { "hand": "76s", "frequency": 0.75 },
-        { "hand": "65s", "frequency": 0.65 }
+        {
+          "hand": "AA",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KK",
+          "frequency": 1.0
+        },
+        {
+          "hand": "QQ",
+          "frequency": 1.0
+        },
+        {
+          "hand": "JJ",
+          "frequency": 1.0
+        },
+        {
+          "hand": "TT",
+          "frequency": 1.0
+        },
+        {
+          "hand": "99",
+          "frequency": 1.0
+        },
+        {
+          "hand": "88",
+          "frequency": 1.0
+        },
+        {
+          "hand": "77",
+          "frequency": 1.0
+        },
+        {
+          "hand": "66",
+          "frequency": 1.0
+        },
+        {
+          "hand": "55",
+          "frequency": 1.0
+        },
+        {
+          "hand": "44",
+          "frequency": 1.0
+        },
+        {
+          "hand": "33",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AKs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AQs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AJs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "ATs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A9s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A8s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A7s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A6s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A5s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A4s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A3s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A2s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KQs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KJs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KTs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "K9s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "K8s",
+          "frequency": 0.75
+        },
+        {
+          "hand": "K7s",
+          "frequency": 0.75
+        },
+        {
+          "hand": "QJs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "QTs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "Q9s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "Q8s",
+          "frequency": 0.75
+        },
+        {
+          "hand": "JTs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "J9s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "J8s",
+          "frequency": 0.75
+        },
+        {
+          "hand": "T9s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "T8s",
+          "frequency": 0.75
+        },
+        {
+          "hand": "98s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "87s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "76s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "65s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "54s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AKo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AQo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AJo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "ATo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A9o",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KQo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KJo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KTo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "QJo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "QTo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "JTo",
+          "frequency": 1.0
+        }
+      ]
+    },
+    {
+      "id": "co-open-60bb",
+      "label": "CO Open (60bb)",
+      "position": "CO",
+      "street": "preflop",
+      "actionLine": "open",
+      "stackBucket": 60,
+      "hands": [
+        {
+          "hand": "AA",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KK",
+          "frequency": 1.0
+        },
+        {
+          "hand": "QQ",
+          "frequency": 1.0
+        },
+        {
+          "hand": "JJ",
+          "frequency": 1.0
+        },
+        {
+          "hand": "TT",
+          "frequency": 1.0
+        },
+        {
+          "hand": "99",
+          "frequency": 1.0
+        },
+        {
+          "hand": "88",
+          "frequency": 1.0
+        },
+        {
+          "hand": "77",
+          "frequency": 1.0
+        },
+        {
+          "hand": "66",
+          "frequency": 1.0
+        },
+        {
+          "hand": "55",
+          "frequency": 1.0
+        },
+        {
+          "hand": "44",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AKs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AQs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AJs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "ATs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A9s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A8s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A7s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A5s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A4s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KQs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KJs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KTs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "K9s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "QJs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "QTs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "Q9s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "JTs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "J9s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "T9s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "98s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "87s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "76s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "65s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AKo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AQo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AJo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "ATo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A9o",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KQo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KJo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KTo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "QJo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "JTo",
+          "frequency": 1.0
+        }
+      ]
+    },
+    {
+      "id": "co-open-40bb",
+      "label": "CO Open (40bb)",
+      "position": "CO",
+      "street": "preflop",
+      "actionLine": "open",
+      "stackBucket": 40,
+      "hands": [
+        {
+          "hand": "AA",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KK",
+          "frequency": 1.0
+        },
+        {
+          "hand": "QQ",
+          "frequency": 1.0
+        },
+        {
+          "hand": "JJ",
+          "frequency": 1.0
+        },
+        {
+          "hand": "TT",
+          "frequency": 1.0
+        },
+        {
+          "hand": "99",
+          "frequency": 1.0
+        },
+        {
+          "hand": "88",
+          "frequency": 1.0
+        },
+        {
+          "hand": "77",
+          "frequency": 1.0
+        },
+        {
+          "hand": "66",
+          "frequency": 1.0
+        },
+        {
+          "hand": "55",
+          "frequency": 1.0
+        },
+        {
+          "hand": "44",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AKs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AQs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AJs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "ATs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A9s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A8s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A5s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KQs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KJs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KTs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "QJs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "JTs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "T9s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "98s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "87s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AKo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AQo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AJo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "ATo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KQo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KJo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "QJo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "JTo",
+          "frequency": 1.0
+        }
+      ]
+    },
+    {
+      "id": "co-open-150bb",
+      "label": "CO Open (150bb)",
+      "position": "CO",
+      "street": "preflop",
+      "actionLine": "open",
+      "stackBucket": 150,
+      "hands": [
+        {
+          "hand": "AA",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KK",
+          "frequency": 1.0
+        },
+        {
+          "hand": "QQ",
+          "frequency": 1.0
+        },
+        {
+          "hand": "JJ",
+          "frequency": 1.0
+        },
+        {
+          "hand": "TT",
+          "frequency": 1.0
+        },
+        {
+          "hand": "99",
+          "frequency": 1.0
+        },
+        {
+          "hand": "88",
+          "frequency": 1.0
+        },
+        {
+          "hand": "77",
+          "frequency": 1.0
+        },
+        {
+          "hand": "66",
+          "frequency": 1.0
+        },
+        {
+          "hand": "55",
+          "frequency": 1.0
+        },
+        {
+          "hand": "44",
+          "frequency": 1.0
+        },
+        {
+          "hand": "33",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AKs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AQs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AJs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "ATs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A9s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A8s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A7s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A6s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A5s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A4s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A3s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KQs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KJs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KTs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "K9s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "K8s",
+          "frequency": 0.75
+        },
+        {
+          "hand": "K7s",
+          "frequency": 0.75
+        },
+        {
+          "hand": "K6s",
+          "frequency": 0.75
+        },
+        {
+          "hand": "QJs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "QTs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "Q9s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "Q8s",
+          "frequency": 0.75
+        },
+        {
+          "hand": "Q7s",
+          "frequency": 0.75
+        },
+        {
+          "hand": "JTs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "J9s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "J8s",
+          "frequency": 0.75
+        },
+        {
+          "hand": "T9s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "T8s",
+          "frequency": 0.75
+        },
+        {
+          "hand": "98s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "97s",
+          "frequency": 0.75
+        },
+        {
+          "hand": "87s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "86s",
+          "frequency": 0.75
+        },
+        {
+          "hand": "76s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "65s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "54s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "43s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AKo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AQo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AJo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "ATo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A9o",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A8o",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KQo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KJo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KTo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "QJo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "QTo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "JTo",
+          "frequency": 1.0
+        }
+      ]
+    },
+    {
+      "id": "hj-open-100bb",
+      "label": "HJ Open (100bb)",
+      "position": "HJ",
+      "street": "preflop",
+      "actionLine": "open",
+      "stackBucket": 100,
+      "hands": [
+        {
+          "hand": "AA",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KK",
+          "frequency": 1.0
+        },
+        {
+          "hand": "QQ",
+          "frequency": 1.0
+        },
+        {
+          "hand": "JJ",
+          "frequency": 1.0
+        },
+        {
+          "hand": "TT",
+          "frequency": 1.0
+        },
+        {
+          "hand": "99",
+          "frequency": 1.0
+        },
+        {
+          "hand": "88",
+          "frequency": 1.0
+        },
+        {
+          "hand": "77",
+          "frequency": 1.0
+        },
+        {
+          "hand": "66",
+          "frequency": 1.0
+        },
+        {
+          "hand": "55",
+          "frequency": 1.0
+        },
+        {
+          "hand": "44",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AKs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AQs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AJs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "ATs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A9s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A8s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A7s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A6s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A5s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A4s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A3s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KQs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KJs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KTs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "K9s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "K8s",
+          "frequency": 0.75
+        },
+        {
+          "hand": "QJs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "QTs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "Q9s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "Q8s",
+          "frequency": 0.75
+        },
+        {
+          "hand": "JTs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "J9s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "T9s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "T8s",
+          "frequency": 0.75
+        },
+        {
+          "hand": "98s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "87s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "76s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "65s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "54s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AKo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AQo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AJo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "ATo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A9o",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KQo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KJo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KTo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "QJo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "JTo",
+          "frequency": 1.0
+        }
+      ]
+    },
+    {
+      "id": "mp-open-100bb",
+      "label": "MP Open (100bb)",
+      "position": "MP",
+      "street": "preflop",
+      "actionLine": "open",
+      "stackBucket": 100,
+      "hands": [
+        {
+          "hand": "AA",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KK",
+          "frequency": 1.0
+        },
+        {
+          "hand": "QQ",
+          "frequency": 1.0
+        },
+        {
+          "hand": "JJ",
+          "frequency": 1.0
+        },
+        {
+          "hand": "TT",
+          "frequency": 1.0
+        },
+        {
+          "hand": "99",
+          "frequency": 1.0
+        },
+        {
+          "hand": "88",
+          "frequency": 1.0
+        },
+        {
+          "hand": "77",
+          "frequency": 1.0
+        },
+        {
+          "hand": "66",
+          "frequency": 1.0
+        },
+        {
+          "hand": "55",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AKs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AQs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AJs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "ATs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A9s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A8s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A7s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A6s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A5s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KQs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KJs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KTs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "K9s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "QJs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "QTs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "Q9s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "JTs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "J9s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "T9s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "98s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "87s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "76s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "65s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AKo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AQo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AJo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "ATo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A9o",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KQo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KJo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KTo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "QJo",
+          "frequency": 1.0
+        }
+      ]
+    },
+    {
+      "id": "utg2-open-100bb",
+      "label": "UTG+2 Open (100bb)",
+      "position": "UTG+2",
+      "street": "preflop",
+      "actionLine": "open",
+      "stackBucket": 100,
+      "hands": [
+        {
+          "hand": "AA",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KK",
+          "frequency": 1.0
+        },
+        {
+          "hand": "QQ",
+          "frequency": 1.0
+        },
+        {
+          "hand": "JJ",
+          "frequency": 1.0
+        },
+        {
+          "hand": "TT",
+          "frequency": 1.0
+        },
+        {
+          "hand": "99",
+          "frequency": 1.0
+        },
+        {
+          "hand": "88",
+          "frequency": 1.0
+        },
+        {
+          "hand": "77",
+          "frequency": 1.0
+        },
+        {
+          "hand": "66",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AKs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AQs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AJs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "ATs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A9s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A8s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A7s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A5s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KQs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KJs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KTs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "K9s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "QJs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "QTs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "JTs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "J9s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "T9s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "98s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "87s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "76s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "65s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AKo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AQo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AJo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "ATo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A8o",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KQo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KJo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KTo",
+          "frequency": 1.0
+        }
+      ]
+    },
+    {
+      "id": "utg1-open-100bb",
+      "label": "UTG+1 Open (100bb)",
+      "position": "UTG+1",
+      "street": "preflop",
+      "actionLine": "open",
+      "stackBucket": 100,
+      "hands": [
+        {
+          "hand": "AA",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KK",
+          "frequency": 1.0
+        },
+        {
+          "hand": "QQ",
+          "frequency": 1.0
+        },
+        {
+          "hand": "JJ",
+          "frequency": 1.0
+        },
+        {
+          "hand": "TT",
+          "frequency": 1.0
+        },
+        {
+          "hand": "99",
+          "frequency": 1.0
+        },
+        {
+          "hand": "88",
+          "frequency": 1.0
+        },
+        {
+          "hand": "77",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AKs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AQs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AJs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "ATs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A9s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A8s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A5s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KQs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KJs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KTs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "K8s",
+          "frequency": 0.75
+        },
+        {
+          "hand": "QJs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "QTs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "JTs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "J9s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "T9s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "98s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "87s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "76s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AKo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AQo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AJo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "ATo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KQo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KJo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KTo",
+          "frequency": 1.0
+        }
       ]
     },
     {
       "id": "utg-open-100bb",
-      "label": "UTG Open Range (100bb)",
+      "label": "UTG Open (100bb)",
       "position": "UTG",
       "street": "preflop",
       "actionLine": "open",
       "stackBucket": 100,
       "hands": [
-        { "hand": "AA", "frequency": 1.0 },
-        { "hand": "KK", "frequency": 1.0 },
-        { "hand": "QQ", "frequency": 1.0 },
-        { "hand": "JJ", "frequency": 1.0 },
-        { "hand": "TT", "frequency": 1.0 },
-        { "hand": "99", "frequency": 0.95 },
-        { "hand": "88", "frequency": 0.85 },
-        { "hand": "77", "frequency": 0.65 },
-        { "hand": "AKs", "frequency": 1.0 },
-        { "hand": "AKo", "frequency": 1.0 },
-        { "hand": "AQs", "frequency": 1.0 },
-        { "hand": "AQo", "frequency": 0.95 },
-        { "hand": "AJs", "frequency": 1.0 },
-        { "hand": "ATs", "frequency": 0.95 },
-        { "hand": "A5s", "frequency": 0.70 },
-        { "hand": "KQs", "frequency": 1.0 },
-        { "hand": "KQo", "frequency": 0.75 },
-        { "hand": "KJs", "frequency": 0.95 },
-        { "hand": "QJs", "frequency": 0.85 },
-        { "hand": "JTs", "frequency": 0.80 },
-        { "hand": "T9s", "frequency": 0.55 }
+        {
+          "hand": "AA",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KK",
+          "frequency": 1.0
+        },
+        {
+          "hand": "QQ",
+          "frequency": 1.0
+        },
+        {
+          "hand": "JJ",
+          "frequency": 1.0
+        },
+        {
+          "hand": "TT",
+          "frequency": 1.0
+        },
+        {
+          "hand": "99",
+          "frequency": 1.0
+        },
+        {
+          "hand": "88",
+          "frequency": 1.0
+        },
+        {
+          "hand": "77",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AKs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AQs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AJs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "ATs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A9s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A5s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KQs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KJs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KTs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "QJs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "QTs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "JTs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "T9s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "98s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "87s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "76s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AKo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AQo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AJo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "ATo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KQo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KJo",
+          "frequency": 1.0
+        }
       ]
     },
     {
-      "id": "bb-defend-vs-btn-100bb",
-      "label": "BB Defend vs BTN Open (100bb)",
+      "id": "utg-open-60bb",
+      "label": "UTG Open (60bb)",
+      "position": "UTG",
+      "street": "preflop",
+      "actionLine": "open",
+      "stackBucket": 60,
+      "hands": [
+        {
+          "hand": "AA",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KK",
+          "frequency": 1.0
+        },
+        {
+          "hand": "QQ",
+          "frequency": 1.0
+        },
+        {
+          "hand": "JJ",
+          "frequency": 1.0
+        },
+        {
+          "hand": "TT",
+          "frequency": 1.0
+        },
+        {
+          "hand": "99",
+          "frequency": 1.0
+        },
+        {
+          "hand": "88",
+          "frequency": 1.0
+        },
+        {
+          "hand": "77",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AKs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AQs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AJs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "ATs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A9s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A5s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KQs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KJs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KTs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "QJs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "QTs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "JTs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "T9s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "98s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "87s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AKo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AQo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AJo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "ATo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KQo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KJo",
+          "frequency": 1.0
+        }
+      ]
+    },
+    {
+      "id": "utg-open-40bb",
+      "label": "UTG Open (40bb)",
+      "position": "UTG",
+      "street": "preflop",
+      "actionLine": "open",
+      "stackBucket": 40,
+      "hands": [
+        {
+          "hand": "AA",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KK",
+          "frequency": 1.0
+        },
+        {
+          "hand": "QQ",
+          "frequency": 1.0
+        },
+        {
+          "hand": "JJ",
+          "frequency": 1.0
+        },
+        {
+          "hand": "TT",
+          "frequency": 1.0
+        },
+        {
+          "hand": "99",
+          "frequency": 1.0
+        },
+        {
+          "hand": "88",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AKs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AQs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AJs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "ATs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A5s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KQs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KJs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "JTs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "T9s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AKo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AQo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AJo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KQo",
+          "frequency": 1.0
+        }
+      ]
+    },
+    {
+      "id": "sb-open-100bb",
+      "label": "SB Open (100bb)",
+      "position": "SB",
+      "street": "preflop",
+      "actionLine": "open",
+      "stackBucket": 100,
+      "hands": [
+        {
+          "hand": "AA",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KK",
+          "frequency": 1.0
+        },
+        {
+          "hand": "QQ",
+          "frequency": 1.0
+        },
+        {
+          "hand": "JJ",
+          "frequency": 1.0
+        },
+        {
+          "hand": "TT",
+          "frequency": 1.0
+        },
+        {
+          "hand": "99",
+          "frequency": 1.0
+        },
+        {
+          "hand": "88",
+          "frequency": 1.0
+        },
+        {
+          "hand": "77",
+          "frequency": 1.0
+        },
+        {
+          "hand": "66",
+          "frequency": 1.0
+        },
+        {
+          "hand": "55",
+          "frequency": 1.0
+        },
+        {
+          "hand": "44",
+          "frequency": 1.0
+        },
+        {
+          "hand": "33",
+          "frequency": 1.0
+        },
+        {
+          "hand": "22",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AKs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AQs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AJs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "ATs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A9s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A8s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A7s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A6s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A5s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A4s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A3s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A2s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KQs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KJs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KTs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "K9s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "K8s",
+          "frequency": 0.75
+        },
+        {
+          "hand": "K7s",
+          "frequency": 0.75
+        },
+        {
+          "hand": "K6s",
+          "frequency": 0.75
+        },
+        {
+          "hand": "K5s",
+          "frequency": 0.75
+        },
+        {
+          "hand": "QJs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "QTs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "Q9s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "Q8s",
+          "frequency": 0.75
+        },
+        {
+          "hand": "Q7s",
+          "frequency": 0.75
+        },
+        {
+          "hand": "JTs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "J9s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "J8s",
+          "frequency": 0.75
+        },
+        {
+          "hand": "T9s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "T8s",
+          "frequency": 0.75
+        },
+        {
+          "hand": "T7s",
+          "frequency": 0.75
+        },
+        {
+          "hand": "98s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "97s",
+          "frequency": 0.75
+        },
+        {
+          "hand": "87s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "86s",
+          "frequency": 0.75
+        },
+        {
+          "hand": "76s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "75s",
+          "frequency": 0.75
+        },
+        {
+          "hand": "65s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "64s",
+          "frequency": 0.75
+        },
+        {
+          "hand": "54s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "53s",
+          "frequency": 0.75
+        },
+        {
+          "hand": "43s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AKo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AQo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AJo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "ATo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A9o",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A8o",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A7o",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A6o",
+          "frequency": 0.75
+        },
+        {
+          "hand": "A5o",
+          "frequency": 0.75
+        },
+        {
+          "hand": "A4o",
+          "frequency": 0.75
+        },
+        {
+          "hand": "KQo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KJo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KTo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "K9o",
+          "frequency": 0.75
+        },
+        {
+          "hand": "QJo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "QTo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "JTo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "T9o",
+          "frequency": 0.75
+        }
+      ]
+    },
+    {
+      "id": "sb-open-40bb",
+      "label": "SB Open (40bb)",
+      "position": "SB",
+      "street": "preflop",
+      "actionLine": "open",
+      "stackBucket": 40,
+      "hands": [
+        {
+          "hand": "AA",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KK",
+          "frequency": 1.0
+        },
+        {
+          "hand": "QQ",
+          "frequency": 1.0
+        },
+        {
+          "hand": "JJ",
+          "frequency": 1.0
+        },
+        {
+          "hand": "TT",
+          "frequency": 1.0
+        },
+        {
+          "hand": "99",
+          "frequency": 1.0
+        },
+        {
+          "hand": "88",
+          "frequency": 1.0
+        },
+        {
+          "hand": "77",
+          "frequency": 1.0
+        },
+        {
+          "hand": "66",
+          "frequency": 1.0
+        },
+        {
+          "hand": "55",
+          "frequency": 1.0
+        },
+        {
+          "hand": "44",
+          "frequency": 1.0
+        },
+        {
+          "hand": "33",
+          "frequency": 1.0
+        },
+        {
+          "hand": "22",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AKs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AQs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AJs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "ATs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A9s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A8s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A7s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A6s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A5s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A4s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A3s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KQs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KJs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KTs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "K9s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "QJs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "QTs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "JTs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "J9s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "T9s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "98s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "87s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "76s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AKo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AQo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AJo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "ATo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A9o",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A8o",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KQo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KJo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KTo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "QJo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "JTo",
+          "frequency": 1.0
+        }
+      ]
+    },
+    {
+      "id": "bb-defend-btn-100bb",
+      "label": "BB Defend vs BTN (100bb)",
       "position": "BB",
       "street": "preflop",
       "actionLine": "call-vs-open",
       "stackBucket": 100,
       "hands": [
-        { "hand": "AA", "frequency": 0.0 },
-        { "hand": "KK", "frequency": 0.0 },
-        { "hand": "QQ", "frequency": 0.0 },
-        { "hand": "JJ", "frequency": 0.50 },
-        { "hand": "TT", "frequency": 0.70 },
-        { "hand": "99", "frequency": 0.80 },
-        { "hand": "88", "frequency": 0.85 },
-        { "hand": "77", "frequency": 0.90 },
-        { "hand": "66", "frequency": 0.90 },
-        { "hand": "55", "frequency": 0.90 },
-        { "hand": "44", "frequency": 0.85 },
-        { "hand": "33", "frequency": 0.80 },
-        { "hand": "22", "frequency": 0.75 },
-        { "hand": "AQs", "frequency": 0.30 },
-        { "hand": "AQo", "frequency": 0.55 },
-        { "hand": "AJs", "frequency": 0.50 },
-        { "hand": "AJo", "frequency": 0.70 },
-        { "hand": "ATs", "frequency": 0.65 },
-        { "hand": "ATo", "frequency": 0.75 },
-        { "hand": "A9s", "frequency": 0.80 },
-        { "hand": "A9o", "frequency": 0.70 },
-        { "hand": "A8s", "frequency": 0.85 },
-        { "hand": "A7s", "frequency": 0.85 },
-        { "hand": "A6s", "frequency": 0.80 },
-        { "hand": "A5s", "frequency": 0.50 },
-        { "hand": "A4s", "frequency": 0.65 },
-        { "hand": "A3s", "frequency": 0.70 },
-        { "hand": "A2s", "frequency": 0.70 },
-        { "hand": "KQs", "frequency": 0.35 },
-        { "hand": "KQo", "frequency": 0.60 },
-        { "hand": "KJs", "frequency": 0.55 },
-        { "hand": "KJo", "frequency": 0.75 },
-        { "hand": "KTs", "frequency": 0.70 },
-        { "hand": "KTo", "frequency": 0.75 },
-        { "hand": "K9s", "frequency": 0.80 },
-        { "hand": "K8s", "frequency": 0.75 },
-        { "hand": "K7s", "frequency": 0.70 },
-        { "hand": "K6s", "frequency": 0.65 },
-        { "hand": "QJs", "frequency": 0.65 },
-        { "hand": "QJo", "frequency": 0.80 },
-        { "hand": "QTs", "frequency": 0.75 },
-        { "hand": "QTo", "frequency": 0.80 },
-        { "hand": "Q9s", "frequency": 0.80 },
-        { "hand": "Q8s", "frequency": 0.70 },
-        { "hand": "JTs", "frequency": 0.65 },
-        { "hand": "JTo", "frequency": 0.80 },
-        { "hand": "J9s", "frequency": 0.80 },
-        { "hand": "J8s", "frequency": 0.70 },
-        { "hand": "T9s", "frequency": 0.75 },
-        { "hand": "T8s", "frequency": 0.75 },
-        { "hand": "98s", "frequency": 0.80 },
-        { "hand": "97s", "frequency": 0.75 },
-        { "hand": "87s", "frequency": 0.80 },
-        { "hand": "86s", "frequency": 0.70 },
-        { "hand": "76s", "frequency": 0.80 },
-        { "hand": "75s", "frequency": 0.65 },
-        { "hand": "65s", "frequency": 0.80 },
-        { "hand": "54s", "frequency": 0.75 },
-        { "hand": "43s", "frequency": 0.55 }
+        {
+          "hand": "AA",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KK",
+          "frequency": 1.0
+        },
+        {
+          "hand": "QQ",
+          "frequency": 1.0
+        },
+        {
+          "hand": "JJ",
+          "frequency": 1.0
+        },
+        {
+          "hand": "TT",
+          "frequency": 1.0
+        },
+        {
+          "hand": "99",
+          "frequency": 1.0
+        },
+        {
+          "hand": "88",
+          "frequency": 1.0
+        },
+        {
+          "hand": "77",
+          "frequency": 1.0
+        },
+        {
+          "hand": "66",
+          "frequency": 1.0
+        },
+        {
+          "hand": "55",
+          "frequency": 1.0
+        },
+        {
+          "hand": "44",
+          "frequency": 1.0
+        },
+        {
+          "hand": "33",
+          "frequency": 1.0
+        },
+        {
+          "hand": "22",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AKs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AQs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AJs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "ATs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A9s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A8s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A7s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A6s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A5s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A4s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A3s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A2s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KQs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KJs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KTs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "K9s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "K8s",
+          "frequency": 0.75
+        },
+        {
+          "hand": "K7s",
+          "frequency": 0.75
+        },
+        {
+          "hand": "K6s",
+          "frequency": 0.75
+        },
+        {
+          "hand": "K5s",
+          "frequency": 0.75
+        },
+        {
+          "hand": "K4s",
+          "frequency": 0.75
+        },
+        {
+          "hand": "K3s",
+          "frequency": 0.75
+        },
+        {
+          "hand": "K2s",
+          "frequency": 0.75
+        },
+        {
+          "hand": "QJs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "QTs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "Q9s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "Q8s",
+          "frequency": 0.75
+        },
+        {
+          "hand": "Q7s",
+          "frequency": 0.75
+        },
+        {
+          "hand": "Q6s",
+          "frequency": 0.75
+        },
+        {
+          "hand": "JTs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "J9s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "J8s",
+          "frequency": 0.75
+        },
+        {
+          "hand": "J7s",
+          "frequency": 0.75
+        },
+        {
+          "hand": "T9s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "T8s",
+          "frequency": 0.75
+        },
+        {
+          "hand": "T7s",
+          "frequency": 0.75
+        },
+        {
+          "hand": "T6s",
+          "frequency": 0.75
+        },
+        {
+          "hand": "98s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "97s",
+          "frequency": 0.75
+        },
+        {
+          "hand": "96s",
+          "frequency": 0.75
+        },
+        {
+          "hand": "87s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "86s",
+          "frequency": 0.75
+        },
+        {
+          "hand": "85s",
+          "frequency": 0.75
+        },
+        {
+          "hand": "76s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "75s",
+          "frequency": 0.75
+        },
+        {
+          "hand": "65s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "64s",
+          "frequency": 0.75
+        },
+        {
+          "hand": "54s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "53s",
+          "frequency": 0.75
+        },
+        {
+          "hand": "43s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "32s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AKo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AQo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AJo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "ATo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A9o",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A8o",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A7o",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A6o",
+          "frequency": 0.75
+        },
+        {
+          "hand": "A5o",
+          "frequency": 0.75
+        },
+        {
+          "hand": "A4o",
+          "frequency": 0.75
+        },
+        {
+          "hand": "A3o",
+          "frequency": 0.75
+        },
+        {
+          "hand": "A2o",
+          "frequency": 0.75
+        },
+        {
+          "hand": "KQo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KJo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KTo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "K9o",
+          "frequency": 0.75
+        },
+        {
+          "hand": "K8o",
+          "frequency": 0.75
+        },
+        {
+          "hand": "K7o",
+          "frequency": 0.75
+        },
+        {
+          "hand": "QJo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "QTo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "Q9o",
+          "frequency": 0.75
+        },
+        {
+          "hand": "JTo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "J9o",
+          "frequency": 0.75
+        },
+        {
+          "hand": "T9o",
+          "frequency": 0.75
+        },
+        {
+          "hand": "98o",
+          "frequency": 0.75
+        },
+        {
+          "hand": "87o",
+          "frequency": 0.75
+        },
+        {
+          "hand": "76o",
+          "frequency": 0.75
+        }
       ]
     },
     {
-      "id": "bb-3bet-vs-btn-100bb",
-      "label": "BB 3-Bet vs BTN Open (100bb)",
-      "position": "BB",
+      "id": "btn-3bet-vs-co-100bb",
+      "label": "BTN 3-bet vs CO (100bb)",
+      "position": "BTN",
       "street": "preflop",
       "actionLine": "3bet-vs-open",
       "stackBucket": 100,
       "hands": [
-        { "hand": "AA", "frequency": 1.0 },
-        { "hand": "KK", "frequency": 1.0 },
-        { "hand": "QQ", "frequency": 1.0 },
-        { "hand": "JJ", "frequency": 0.50 },
-        { "hand": "TT", "frequency": 0.30 },
-        { "hand": "AKs", "frequency": 1.0 },
-        { "hand": "AKo", "frequency": 1.0 },
-        { "hand": "AQs", "frequency": 0.70 },
-        { "hand": "AQo", "frequency": 0.45 },
-        { "hand": "AJs", "frequency": 0.50 },
-        { "hand": "ATs", "frequency": 0.35 },
-        { "hand": "A5s", "frequency": 0.50 },
-        { "hand": "A4s", "frequency": 0.35 },
-        { "hand": "KQs", "frequency": 0.65 },
-        { "hand": "KJs", "frequency": 0.45 },
-        { "hand": "QJs", "frequency": 0.35 },
-        { "hand": "JTs", "frequency": 0.35 },
-        { "hand": "T9s", "frequency": 0.25 },
-        { "hand": "98s", "frequency": 0.20 },
-        { "hand": "87s", "frequency": 0.20 },
-        { "hand": "76s", "frequency": 0.20 },
-        { "hand": "65s", "frequency": 0.25 }
+        {
+          "hand": "AA",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KK",
+          "frequency": 1.0
+        },
+        {
+          "hand": "QQ",
+          "frequency": 1.0
+        },
+        {
+          "hand": "JJ",
+          "frequency": 1.0
+        },
+        {
+          "hand": "TT",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AKs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AQs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AJs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "ATs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A5s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A4s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KQs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KJs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "QJs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "JTs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AKo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AQo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AJo",
+          "frequency": 1.0
+        }
       ]
     },
     {
-      "id": "sb-3bet-vs-co-100bb",
-      "label": "SB 3-Bet vs CO Open (100bb)",
+      "id": "co-3bet-vs-btn-100bb",
+      "label": "CO 3-bet vs BTN (100bb)",
+      "position": "CO",
+      "street": "preflop",
+      "actionLine": "3bet-vs-open",
+      "stackBucket": 100,
+      "hands": [
+        {
+          "hand": "AA",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KK",
+          "frequency": 1.0
+        },
+        {
+          "hand": "QQ",
+          "frequency": 1.0
+        },
+        {
+          "hand": "JJ",
+          "frequency": 1.0
+        },
+        {
+          "hand": "TT",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AKs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AQs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AJs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A5s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A4s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KQs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "JTs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "98s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AKo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AQo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AJo",
+          "frequency": 1.0
+        }
+      ]
+    },
+    {
+      "id": "sb-3bet-vs-btn-100bb",
+      "label": "SB 3-bet vs BTN (100bb)",
       "position": "SB",
       "street": "preflop",
       "actionLine": "3bet-vs-open",
       "stackBucket": 100,
       "hands": [
-        { "hand": "AA", "frequency": 1.0 },
-        { "hand": "KK", "frequency": 1.0 },
-        { "hand": "QQ", "frequency": 1.0 },
-        { "hand": "JJ", "frequency": 0.65 },
-        { "hand": "TT", "frequency": 0.40 },
-        { "hand": "AKs", "frequency": 1.0 },
-        { "hand": "AKo", "frequency": 1.0 },
-        { "hand": "AQs", "frequency": 0.80 },
-        { "hand": "AQo", "frequency": 0.50 },
-        { "hand": "AJs", "frequency": 0.55 },
-        { "hand": "ATs", "frequency": 0.35 },
-        { "hand": "A5s", "frequency": 0.45 },
-        { "hand": "A4s", "frequency": 0.30 },
-        { "hand": "KQs", "frequency": 0.55 },
-        { "hand": "KJs", "frequency": 0.35 },
-        { "hand": "QJs", "frequency": 0.25 },
-        { "hand": "JTs", "frequency": 0.25 },
-        { "hand": "T9s", "frequency": 0.15 }
+        {
+          "hand": "AA",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KK",
+          "frequency": 1.0
+        },
+        {
+          "hand": "QQ",
+          "frequency": 1.0
+        },
+        {
+          "hand": "JJ",
+          "frequency": 1.0
+        },
+        {
+          "hand": "TT",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AKs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AQs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AJs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A5s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A4s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KQs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "QJs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AKo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AQo",
+          "frequency": 1.0
+        }
       ]
     },
     {
-      "id": "co-3bet-vs-utg-100bb",
-      "label": "CO 3-Bet vs UTG Open (100bb)",
-      "position": "CO",
+      "id": "bb-3bet-vs-btn-100bb",
+      "label": "BB 3-bet vs BTN (100bb)",
+      "position": "BB",
       "street": "preflop",
       "actionLine": "3bet-vs-open",
       "stackBucket": 100,
       "hands": [
-        { "hand": "AA", "frequency": 1.0 },
-        { "hand": "KK", "frequency": 1.0 },
-        { "hand": "QQ", "frequency": 1.0 },
-        { "hand": "JJ", "frequency": 0.45 },
-        { "hand": "TT", "frequency": 0.20 },
-        { "hand": "AKs", "frequency": 1.0 },
-        { "hand": "AKo", "frequency": 1.0 },
-        { "hand": "AQs", "frequency": 0.65 },
-        { "hand": "AQo", "frequency": 0.25 },
-        { "hand": "AJs", "frequency": 0.30 },
-        { "hand": "A5s", "frequency": 0.35 },
-        { "hand": "KQs", "frequency": 0.40 }
+        {
+          "hand": "AA",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KK",
+          "frequency": 1.0
+        },
+        {
+          "hand": "QQ",
+          "frequency": 1.0
+        },
+        {
+          "hand": "JJ",
+          "frequency": 1.0
+        },
+        {
+          "hand": "TT",
+          "frequency": 1.0
+        },
+        {
+          "hand": "99",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AKs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AQs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AJs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "ATs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A5s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A4s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KQs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KJs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "QJs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "JTs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "T9s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AKo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AQo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AJo",
+          "frequency": 1.0
+        }
       ]
     },
     {
-      "id": "btn-vs-3bet-from-bb-100bb",
-      "label": "BTN vs 3-Bet from BB (100bb) — Continue Range",
+      "id": "btn-3bet-vs-utg-100bb",
+      "label": "BTN 3-bet vs UTG (100bb)",
+      "position": "BTN",
+      "street": "preflop",
+      "actionLine": "3bet-vs-open",
+      "stackBucket": 100,
+      "hands": [
+        {
+          "hand": "AA",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KK",
+          "frequency": 1.0
+        },
+        {
+          "hand": "QQ",
+          "frequency": 1.0
+        },
+        {
+          "hand": "JJ",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AKs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AQs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A5s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KQs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AKo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AQo",
+          "frequency": 1.0
+        }
+      ]
+    },
+    {
+      "id": "mp-3bet-vs-utg-100bb",
+      "label": "MP 3-bet vs UTG (100bb)",
+      "position": "MP",
+      "street": "preflop",
+      "actionLine": "3bet-vs-open",
+      "stackBucket": 100,
+      "hands": [
+        {
+          "hand": "AA",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KK",
+          "frequency": 1.0
+        },
+        {
+          "hand": "QQ",
+          "frequency": 1.0
+        },
+        {
+          "hand": "JJ",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AKs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AQs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A5s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KQs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AKo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AQo",
+          "frequency": 1.0
+        }
+      ]
+    },
+    {
+      "id": "btn-3bet-vs-co-40bb",
+      "label": "BTN 3-bet vs CO (40bb)",
+      "position": "BTN",
+      "street": "preflop",
+      "actionLine": "3bet-vs-open",
+      "stackBucket": 40,
+      "hands": [
+        {
+          "hand": "AA",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KK",
+          "frequency": 1.0
+        },
+        {
+          "hand": "QQ",
+          "frequency": 1.0
+        },
+        {
+          "hand": "JJ",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AKs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AQs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A5s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KQs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AKo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AQo",
+          "frequency": 1.0
+        }
+      ]
+    },
+    {
+      "id": "btn-vs-3bet-100bb",
+      "label": "BTN vs 3-bet Call Range (100bb)",
       "position": "BTN",
       "street": "preflop",
       "actionLine": "vs-3bet",
       "stackBucket": 100,
       "hands": [
-        { "hand": "AA", "frequency": 1.0 },
-        { "hand": "KK", "frequency": 1.0 },
-        { "hand": "QQ", "frequency": 1.0 },
-        { "hand": "JJ", "frequency": 1.0 },
-        { "hand": "TT", "frequency": 0.85 },
-        { "hand": "99", "frequency": 0.55 },
-        { "hand": "88", "frequency": 0.35 },
-        { "hand": "77", "frequency": 0.20 },
-        { "hand": "AKs", "frequency": 1.0 },
-        { "hand": "AKo", "frequency": 1.0 },
-        { "hand": "AQs", "frequency": 1.0 },
-        { "hand": "AQo", "frequency": 0.80 },
-        { "hand": "AJs", "frequency": 0.85 },
-        { "hand": "AJo", "frequency": 0.40 },
-        { "hand": "ATs", "frequency": 0.70 },
-        { "hand": "A5s", "frequency": 0.50 },
-        { "hand": "A4s", "frequency": 0.40 },
-        { "hand": "KQs", "frequency": 0.85 },
-        { "hand": "KQo", "frequency": 0.35 },
-        { "hand": "KJs", "frequency": 0.60 },
-        { "hand": "KTs", "frequency": 0.40 },
-        { "hand": "QJs", "frequency": 0.55 },
-        { "hand": "QTs", "frequency": 0.35 },
-        { "hand": "JTs", "frequency": 0.50 },
-        { "hand": "T9s", "frequency": 0.30 },
-        { "hand": "98s", "frequency": 0.25 },
-        { "hand": "87s", "frequency": 0.20 },
-        { "hand": "76s", "frequency": 0.15 }
+        {
+          "hand": "QQ",
+          "frequency": 1.0
+        },
+        {
+          "hand": "JJ",
+          "frequency": 1.0
+        },
+        {
+          "hand": "TT",
+          "frequency": 1.0
+        },
+        {
+          "hand": "99",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AQs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AJs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "ATs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KQs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KJs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "JTs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "T9s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AQo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AJo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KQo",
+          "frequency": 1.0
+        }
       ]
     },
     {
-      "id": "co-vs-3bet-from-btn-100bb",
-      "label": "CO vs 3-Bet from BTN (100bb) — Continue Range",
+      "id": "co-vs-3bet-100bb",
+      "label": "CO vs 3-bet Call Range (100bb)",
       "position": "CO",
       "street": "preflop",
       "actionLine": "vs-3bet",
       "stackBucket": 100,
       "hands": [
-        { "hand": "AA", "frequency": 1.0 },
-        { "hand": "KK", "frequency": 1.0 },
-        { "hand": "QQ", "frequency": 1.0 },
-        { "hand": "JJ", "frequency": 0.90 },
-        { "hand": "TT", "frequency": 0.65 },
-        { "hand": "99", "frequency": 0.35 },
-        { "hand": "AKs", "frequency": 1.0 },
-        { "hand": "AKo", "frequency": 1.0 },
-        { "hand": "AQs", "frequency": 1.0 },
-        { "hand": "AQo", "frequency": 0.60 },
-        { "hand": "AJs", "frequency": 0.65 },
-        { "hand": "ATs", "frequency": 0.40 },
-        { "hand": "A5s", "frequency": 0.35 },
-        { "hand": "KQs", "frequency": 0.70 },
-        { "hand": "KJs", "frequency": 0.35 },
-        { "hand": "QJs", "frequency": 0.30 },
-        { "hand": "JTs", "frequency": 0.25 },
-        { "hand": "T9s", "frequency": 0.15 }
+        {
+          "hand": "JJ",
+          "frequency": 1.0
+        },
+        {
+          "hand": "TT",
+          "frequency": 1.0
+        },
+        {
+          "hand": "99",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AJs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "ATs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KQs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KJs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "JTs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AJo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KQo",
+          "frequency": 1.0
+        }
       ]
     },
     {
-      "id": "utg-vs-3bet-from-co-100bb",
-      "label": "UTG vs 3-Bet from CO (100bb) — Continue Range",
+      "id": "utg-vs-3bet-100bb",
+      "label": "UTG vs 3-bet Call Range (100bb)",
       "position": "UTG",
       "street": "preflop",
       "actionLine": "vs-3bet",
       "stackBucket": 100,
       "hands": [
-        { "hand": "AA", "frequency": 1.0 },
-        { "hand": "KK", "frequency": 1.0 },
-        { "hand": "QQ", "frequency": 1.0 },
-        { "hand": "JJ", "frequency": 0.75 },
-        { "hand": "TT", "frequency": 0.45 },
-        { "hand": "AKs", "frequency": 1.0 },
-        { "hand": "AKo", "frequency": 1.0 },
-        { "hand": "AQs", "frequency": 0.85 },
-        { "hand": "AQo", "frequency": 0.40 },
-        { "hand": "AJs", "frequency": 0.35 },
-        { "hand": "KQs", "frequency": 0.45 }
+        {
+          "hand": "JJ",
+          "frequency": 1.0
+        },
+        {
+          "hand": "TT",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AJs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "ATs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KQs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AJo",
+          "frequency": 1.0
+        }
       ]
     },
     {
-      "id": "btn-4bet-vs-bb-3bet-100bb",
-      "label": "BTN 4-Bet vs BB 3-Bet (100bb)",
+      "id": "sb-vs-3bet-100bb",
+      "label": "SB vs 3-bet Call Range (100bb)",
+      "position": "SB",
+      "street": "preflop",
+      "actionLine": "vs-3bet",
+      "stackBucket": 100,
+      "hands": [
+        {
+          "hand": "JJ",
+          "frequency": 1.0
+        },
+        {
+          "hand": "TT",
+          "frequency": 1.0
+        },
+        {
+          "hand": "99",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AQs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AJs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "ATs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KQs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AQo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AJo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KQo",
+          "frequency": 1.0
+        }
+      ]
+    },
+    {
+      "id": "btn-4bet-100bb",
+      "label": "BTN 4-bet Range (100bb)",
       "position": "BTN",
       "street": "preflop",
       "actionLine": "4bet",
       "stackBucket": 100,
       "hands": [
-        { "hand": "AA", "frequency": 1.0 },
-        { "hand": "KK", "frequency": 1.0 },
-        { "hand": "QQ", "frequency": 0.85 },
-        { "hand": "JJ", "frequency": 0.30 },
-        { "hand": "AKs", "frequency": 1.0 },
-        { "hand": "AKo", "frequency": 0.90 },
-        { "hand": "AQs", "frequency": 0.40 },
-        { "hand": "A5s", "frequency": 0.35 },
-        { "hand": "A4s", "frequency": 0.25 }
+        {
+          "hand": "AA",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KK",
+          "frequency": 1.0
+        },
+        {
+          "hand": "QQ",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AKs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AKo",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A5s",
+          "frequency": 1.0
+        },
+        {
+          "hand": "A4s",
+          "frequency": 1.0
+        }
       ]
     },
     {
-      "id": "co-4bet-vs-btn-3bet-100bb",
-      "label": "CO 4-Bet vs BTN 3-Bet (100bb)",
-      "position": "CO",
+      "id": "utg-4bet-100bb",
+      "label": "UTG 4-bet Range (100bb)",
+      "position": "UTG",
       "street": "preflop",
       "actionLine": "4bet",
       "stackBucket": 100,
       "hands": [
-        { "hand": "AA", "frequency": 1.0 },
-        { "hand": "KK", "frequency": 1.0 },
-        { "hand": "QQ", "frequency": 0.70 },
-        { "hand": "AKs", "frequency": 1.0 },
-        { "hand": "AKo", "frequency": 0.80 },
-        { "hand": "AQs", "frequency": 0.25 },
-        { "hand": "A5s", "frequency": 0.20 }
+        {
+          "hand": "AA",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KK",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AKs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AKo",
+          "frequency": 1.0
+        }
       ]
     },
     {
-      "id": "bb-vs-4bet-from-btn-100bb",
-      "label": "BB vs 4-Bet from BTN (100bb) — Continue Range",
-      "position": "BB",
+      "id": "btn-vs-4bet-100bb",
+      "label": "BTN vs 4-bet Shove Range (100bb)",
+      "position": "BTN",
       "street": "preflop",
       "actionLine": "vs-4bet",
       "stackBucket": 100,
       "hands": [
-        { "hand": "AA", "frequency": 1.0 },
-        { "hand": "KK", "frequency": 1.0 },
-        { "hand": "QQ", "frequency": 0.80 },
-        { "hand": "JJ", "frequency": 0.35 },
-        { "hand": "AKs", "frequency": 1.0 },
-        { "hand": "AKo", "frequency": 0.75 },
-        { "hand": "AQs", "frequency": 0.30 }
+        {
+          "hand": "AA",
+          "frequency": 1.0
+        },
+        {
+          "hand": "KK",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AKs",
+          "frequency": 1.0
+        },
+        {
+          "hand": "AKo",
+          "frequency": 1.0
+        }
       ]
     }
   ]

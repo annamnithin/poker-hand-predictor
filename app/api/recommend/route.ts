@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { HandScenarioInputSchema } from '@/lib/domain/schemas';
+import type { HandScenarioInput } from '@/lib/domain/types';
 
 export const dynamic = 'force-dynamic';
 import { validateHandScenario } from '@/lib/validation/validate-scenario';
@@ -18,8 +19,12 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    // Zod widens card fields to string; casting is safe because CardSchema
+    // already validates each card value against the full deck literal union.
+    const scenario = parsed.data as HandScenarioInput;
+
     // Step 2: Domain-level validation
-    const domainErrors = validateHandScenario(parsed.data);
+    const domainErrors = validateHandScenario(scenario);
     if (domainErrors.length > 0) {
       return NextResponse.json(
         { error: 'Invalid hand scenario', details: domainErrors },
@@ -28,9 +33,9 @@ export async function POST(req: NextRequest) {
     }
 
     // Step 3: Generate recommendation
-    const recommendation = generateRecommendation(parsed.data);
+    const recommendation = generateRecommendation(scenario);
 
-    return NextResponse.json({ recommendation, input: parsed.data });
+    return NextResponse.json({ recommendation, input: scenario });
   } catch (err) {
     console.error('Recommendation error:', err);
     return NextResponse.json(

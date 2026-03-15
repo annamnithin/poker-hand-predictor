@@ -152,10 +152,10 @@ export default function NewHandPage() {
     <div className="space-y-6 pb-12">
       <div>
         <h1 className="text-2xl font-bold" style={{ fontFamily: 'var(--font-display)' }}>
-          New Hand
+          Analyze Hand
         </h1>
         <p className="text-sm text-slate-500 mt-1">
-          Enter the hand details and get a solver-inspired recommendation.
+          Enter your hand details to get an EV-based recommendation with full breakdown.
         </p>
       </div>
 
@@ -299,16 +299,29 @@ export default function NewHandPage() {
       <Card>
         <CardHeader>
           <CardTitle>
-            {opponentsLeft === 1 ? 'Opponent' : `Opponents (${opponentsLeft})`}
+            {opponentsLeft === 1 ? 'Opponent Profile' : `Opponent Profiles (${opponentsLeft})`}
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           {opponents.map((opp, i) => (
-            <div key={i} className="space-y-2">
+            <div
+              key={i}
+              className={cn(
+                'rounded-xl border p-4 space-y-3',
+                opponentsLeft > 1
+                  ? 'border-slate-200 bg-slate-50/60'
+                  : 'border-transparent p-0'
+              )}
+            >
               {opponentsLeft > 1 && (
-                <p className="text-xs font-semibold text-slate-500 uppercase tracking-wide">
-                  Opponent {i + 1}
-                </p>
+                <div className="flex items-center gap-2">
+                  <span className="w-6 h-6 rounded-full bg-emerald-100 text-emerald-700 text-xs font-bold flex items-center justify-center">
+                    {i + 1}
+                  </span>
+                  <p className="text-sm font-semibold text-slate-600">
+                    Opponent {i + 1}
+                  </p>
+                </div>
               )}
               <div className="grid grid-cols-2 gap-3">
                 <Select
@@ -330,14 +343,11 @@ export default function NewHandPage() {
                   value={opp.range ?? ''}
                   onChange={(e) => {
                     const updated = [...opponents];
-                    updated[i] = { ...updated[i], range: e.target.value };
+                    updated[i] = { ...updated[i], range: e.target.value || undefined };
                     setOpponents(updated);
                   }}
                 />
               </div>
-              {opponentsLeft > 1 && i < opponentsLeft - 1 && (
-                <div className="border-b border-slate-100" />
-              )}
             </div>
           ))}
         </CardContent>
