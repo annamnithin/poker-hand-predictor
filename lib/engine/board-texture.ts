@@ -39,8 +39,8 @@ export function analyzeBoardTexture(boardCards: Card[]): BoardTexture {
 
   const ranks = boardCards.map((c) => RANK_VALUES[c[0]]).sort((a, b) => b - a);
   const suits = boardCards.map((c) => c[1]);
-  const uniqueRanks = [...new Set(ranks)];
-  const uniqueSuits = [...new Set(suits)];
+  const uniqueRanks = Array.from(new Set(ranks));
+  const uniqueSuits = Array.from(new Set(suits));
 
   const flushTexture = getFlushTexture(suits);
   const pairStructure = getPairStructure(ranks);
@@ -123,7 +123,7 @@ function getHighCard(topRank: number): BoardHighCard {
 
 function checkStraightPossibility(ranks: number[], boardLength: number): boolean {
   // Check if there are 3+ cards within a 5-card window
-  const unique = [...new Set(ranks)];
+  const unique = Array.from(new Set(ranks));
   for (let high = 6; high <= 14; high++) {
     const window = [high - 4, high - 3, high - 2, high - 1, high];
     const count = window.filter((r) => unique.includes(r)).length;

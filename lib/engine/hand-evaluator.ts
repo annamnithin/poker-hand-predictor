@@ -72,7 +72,7 @@ function evaluate5(cards: Card[]): FiveCardResult {
   const isFlush = suits.every((s) => s === suits[0]);
 
   // Straight check
-  const uniqueRanks = [...new Set(ranks)].sort((a, b) => b - a);
+  const uniqueRanks = Array.from(new Set(ranks)).sort((a, b) => b - a);
   let isStraight = false;
   let straightHigh = 0;
   if (uniqueRanks.length >= 5) {
@@ -277,7 +277,7 @@ export function detectDraws(heroCards: Card[], boardCards: Card[]): DrawResult[]
   }
 
   // --- Straight draws ---
-  const allRanks = [...new Set(allParsed.map((p) => p.rank))].sort((a, b) => a - b);
+  const allRanks = Array.from(new Set(allParsed.map((p) => p.rank))).sort((a, b) => a - b);
   // Include ace as 1 for wheel
   if (allRanks.includes(14)) allRanks.unshift(1);
 
