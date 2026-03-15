@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { HandScenarioInputSchema } from '@/lib/domain/schemas';
+
+export const dynamic = 'force-dynamic';
 import { validateHandScenario } from '@/lib/validation/validate-scenario';
 import { generateRecommendation } from '@/lib/engine/recommend';
 

@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getUserSettings, updateUserSettings } from '@/server/repositories/hand-repository';
 import { UserSettingsSchema } from '@/lib/domain/schemas';
 
+export const dynamic = 'force-dynamic';
+
 export async function GET() {
   try {
     const settings = await getUserSettings();

@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getHand, deleteHand } from '@/server/repositories/hand-repository';
 
+export const dynamic = 'force-dynamic';
+
 export async function GET(
   req: NextRequest,
   { params }: { params: { id: string } }
