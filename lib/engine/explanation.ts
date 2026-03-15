@@ -12,7 +12,7 @@ export function generateExplanation(
   breakdown: EVBreakdown,
   confidence: number,
   street: Street,
-  opponentStyle: PlayerStyle,
+  opponents: Array<{ style: PlayerStyle; range?: string }>,
   actionLine?: string
 ): string {
   const parts: string[] = [];
@@ -24,8 +24,11 @@ export function generateExplanation(
   parts.push(getActionExplanation(ev, breakdown));
   parts.push(getEquityContext(breakdown));
 
-  if (opponentStyle !== 'unknown') {
-    parts.push(getOpponentContext(opponentStyle));
+  const knownOpponents = opponents.filter((o) => o.style !== 'unknown');
+  if (knownOpponents.length === 1) {
+    parts.push(getOpponentContext(knownOpponents[0].style));
+  } else if (knownOpponents.length > 1) {
+    parts.push(getMultiOpponentContext(knownOpponents.map((o) => o.style)));
   }
 
   parts.push(getConfidenceContext(confidence));
@@ -34,6 +37,11 @@ export function generateExplanation(
   if (streetNote) parts.push(streetNote);
 
   return parts.join(' ');
+}
+
+function getMultiOpponentContext(styles: PlayerStyle[]): string {
+  const descriptions = styles.join(', ');
+  return `You are facing ${styles.length} opponents with known tendencies (${descriptions}). In multi-way pots, tighten your value range and reduce bluff frequency.`;
 }
 
 /**

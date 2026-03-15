@@ -19,7 +19,7 @@ const baseInput: HandScenarioInput = {
   heroStack: 100,
   villainStack: 100,
   opponentsLeft: 1,
-  opponentStyle: 'unknown',
+  opponents: [{ style: 'unknown' }],
   actionHistory: [],
 };
 

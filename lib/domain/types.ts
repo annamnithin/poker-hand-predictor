@@ -84,6 +84,14 @@ export type PlayerStyle = (typeof PLAYER_STYLES)[number];
 export const TENDENCY_LABELS = ['loose', 'tight', 'aggressive', 'passive'] as const;
 export type TendencyLabel = (typeof TENDENCY_LABELS)[number];
 
+// --- Opponent Profile ---
+
+export interface OpponentProfile {
+  style: PlayerStyle;
+  range?: string;             // optional explicit range label like "top15%"
+  tendencyOverrides?: TendencyLabel[];
+}
+
 // --- Hand Scenario Input (what the user enters) ---
 
 export interface HandScenarioInput {
@@ -98,9 +106,7 @@ export interface HandScenarioInput {
   villainStack: number;
   opponentsLeft: number;
   actionHistory: ActionHistoryEntry[];
-  opponentStyle: PlayerStyle;
-  opponentRange?: string;     // optional explicit range label like "top15%"
-  tendencyOverrides?: TendencyLabel[];
+  opponents: OpponentProfile[]; // one entry per active opponent (length === opponentsLeft)
 }
 
 // --- Normalized / Abstracted Scenario ---

@@ -21,7 +21,7 @@ describe('generateExplanation', () => {
       bestRaiseSizing: 10,
       bestRaiseFraction: 0.5,
     };
-    const explanation = generateExplanation(ev, baseBreakdown, 65, 'preflop', 'unknown');
+    const explanation = generateExplanation(ev, baseBreakdown, 65, 'preflop', [{ style: 'unknown' }]);
     expect(explanation).toContain('Call');
     expect(explanation.length).toBeGreaterThan(50);
   });
@@ -35,7 +35,7 @@ describe('generateExplanation', () => {
       bestRaiseSizing: 10,
       bestRaiseFraction: 0.5,
     };
-    const explanation = generateExplanation(ev, baseBreakdown, 70, 'flop', 'TAG');
+    const explanation = generateExplanation(ev, baseBreakdown, 70, 'flop', [{ style: 'TAG' }]);
     expect(explanation).toContain('Rais');
     expect(explanation).toContain('tight-aggressive');
   });
@@ -49,7 +49,7 @@ describe('generateExplanation', () => {
       bestRaiseSizing: null,
       bestRaiseFraction: null,
     };
-    const explanation = generateExplanation(ev, baseBreakdown, 40, 'river', 'unknown');
+    const explanation = generateExplanation(ev, baseBreakdown, 40, 'river', [{ style: 'unknown' }]);
     expect(explanation).toContain('Fold');
   });
 
@@ -58,7 +58,7 @@ describe('generateExplanation', () => {
       evFold: 0, evCall: 5, evRaise: 3, bestAction: 'call',
       bestRaiseSizing: null, bestRaiseFraction: null,
     };
-    const explanation = generateExplanation(ev, baseBreakdown, 60, 'flop', 'LAG');
+    const explanation = generateExplanation(ev, baseBreakdown, 60, 'flop', [{ style: 'LAG' }]);
     expect(explanation).toContain('loose-aggressive');
   });
 });

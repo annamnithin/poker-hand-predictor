@@ -50,14 +50,13 @@ export function calculateConfidence(inputs: ConfidenceInputs): number {
  */
 export function assessInputCompleteness(input: {
   actionHistory: unknown[];
-  opponentRange?: string;
-  opponentStyle: string;
+  opponents: Array<{ style: string; range?: string }>;
 }): number {
   let completeness = 0.5;
 
   if (input.actionHistory.length > 0) completeness += 0.2;
-  if (input.opponentRange) completeness += 0.15;
-  if (input.opponentStyle !== 'unknown') completeness += 0.15;
+  if (input.opponents.some((o) => o.range)) completeness += 0.15;
+  if (input.opponents.some((o) => o.style !== 'unknown')) completeness += 0.15;
 
   return Math.min(1, completeness);
 }

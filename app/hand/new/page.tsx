@@ -10,6 +10,7 @@ import type {
   ActionHistoryEntry,
   HandScenarioInput,
   RecommendationResult,
+  OpponentProfile,
 } from '@/lib/domain/types';
 import { STREETS, POSITIONS, PLAYER_STYLES, BOARD_CARD_COUNT } from '@/lib/domain/types';
 import { Button } from '@/components/ui/button';
@@ -35,9 +36,18 @@ export default function NewHandPage() {
   const [heroStack, setHeroStack] = useState('100');
   const [villainStack, setVillainStack] = useState('100');
   const [opponentsLeft, setOpponentsLeft] = useState(1);
-  const [opponentStyle, setOpponentStyle] = useState<PlayerStyle>('unknown');
-  const [opponentRange, setOpponentRange] = useState('');
+  const [opponents, setOpponents] = useState<OpponentProfile[]>([{ style: 'unknown' }]);
   const [actionHistory, setActionHistory] = useState<ActionHistoryEntry[]>([]);
+
+  const handleOpponentsLeftChange = (n: number) => {
+    setOpponentsLeft(n);
+    setOpponents((prev) => {
+      if (n > prev.length) {
+        return [...prev, ...Array.from({ length: n - prev.length }, () => ({ style: 'unknown' as PlayerStyle }))];
+      }
+      return prev.slice(0, n);
+    });
+  };
 
   // Result state
   const [result, setResult] = useState<RecommendationResult | null>(null);
@@ -69,8 +79,7 @@ export default function NewHandPage() {
     heroStack: parseFloat(heroStack) || 0,
     villainStack: parseFloat(villainStack) || 0,
     opponentsLeft,
-    opponentStyle,
-    opponentRange: opponentRange || undefined,
+    opponents: opponents.map((o) => ({ style: o.style, range: o.range || undefined, tendencyOverrides: o.tendencyOverrides })),
     actionHistory,
   });
 
@@ -222,7 +231,7 @@ export default function NewHandPage() {
             <Select
               label="Opponents Left"
               value={opponentsLeft}
-              onChange={(e) => setOpponentsLeft(parseInt(e.target.value))}
+              onChange={(e) => handleOpponentsLeftChange(parseInt(e.target.value))}
             >
               {Array.from({ length: totalPlayers - 1 }, (_, i) => i + 1).map((n) => (
                 <option key={n} value={n}>{n}</option>
@@ -275,29 +284,51 @@ export default function NewHandPage() {
         </CardContent>
       </Card>
 
-      {/* Opponent Profile */}
+      {/* Opponent Profiles */}
       <Card>
         <CardHeader>
-          <CardTitle>Opponent</CardTitle>
+          <CardTitle>
+            {opponentsLeft === 1 ? 'Opponent' : `Opponents (${opponentsLeft})`}
+          </CardTitle>
         </CardHeader>
-        <CardContent>
-          <div className="grid grid-cols-2 gap-3">
-            <Select
-              label="Player Style"
-              value={opponentStyle}
-              onChange={(e) => setOpponentStyle(e.target.value as PlayerStyle)}
-            >
-              {PLAYER_STYLES.map((s) => (
-                <option key={s} value={s}>{s}</option>
-              ))}
-            </Select>
-            <Input
-              label="Range (optional)"
-              placeholder="e.g. top15%"
-              value={opponentRange}
-              onChange={(e) => setOpponentRange(e.target.value)}
-            />
-          </div>
+        <CardContent className="space-y-4">
+          {opponents.map((opp, i) => (
+            <div key={i} className="space-y-2">
+              {opponentsLeft > 1 && (
+                <p className="text-xs font-semibold text-slate-500 uppercase tracking-wide">
+                  Opponent {i + 1}
+                </p>
+              )}
+              <div className="grid grid-cols-2 gap-3">
+                <Select
+                  label="Player Style"
+                  value={opp.style}
+                  onChange={(e) => {
+                    const updated = [...opponents];
+                    updated[i] = { ...updated[i], style: e.target.value as PlayerStyle };
+                    setOpponents(updated);
+                  }}
+                >
+                  {PLAYER_STYLES.map((s) => (
+                    <option key={s} value={s}>{s}</option>
+                  ))}
+                </Select>
+                <Input
+                  label="Range (optional)"
+                  placeholder="e.g. top15%"
+                  value={opp.range ?? ''}
+                  onChange={(e) => {
+                    const updated = [...opponents];
+                    updated[i] = { ...updated[i], range: e.target.value };
+                    setOpponents(updated);
+                  }}
+                />
+              </div>
+              {opponentsLeft > 1 && i < opponentsLeft - 1 && (
+                <div className="border-b border-slate-100" />
+              )}
+            </div>
+          ))}
         </CardContent>
       </Card>
 

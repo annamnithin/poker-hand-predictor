@@ -38,8 +38,7 @@ export async function saveHandWithRecommendation(
       heroStack: input.heroStack,
       villainStack: input.villainStack,
       opponentsLeft: input.opponentsLeft,
-      opponentStyle: input.opponentStyle,
-      opponentRange: input.opponentRange ?? null,
+      opponents: input.opponents as any,
       actionHistory: input.actionHistory as any,
       recommendation: {
         create: {

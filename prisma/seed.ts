@@ -16,7 +16,7 @@ const DEMO_HANDS: HandScenarioInput[] = [
     heroStack: 100,
     villainStack: 100,
     opponentsLeft: 4,
-    opponentStyle: 'unknown',
+    opponents: [{ style: 'unknown' }, { style: 'unknown' }, { style: 'unknown' }, { style: 'unknown' }],
     actionHistory: [],
   },
   {
@@ -30,7 +30,7 @@ const DEMO_HANDS: HandScenarioInput[] = [
     heroStack: 100,
     villainStack: 100,
     opponentsLeft: 5,
-    opponentStyle: 'TAG',
+    opponents: [{ style: 'TAG' }, { style: 'unknown' }, { style: 'unknown' }, { style: 'unknown' }, { style: 'unknown' }],
     actionHistory: [],
   },
   {
@@ -44,7 +44,7 @@ const DEMO_HANDS: HandScenarioInput[] = [
     heroStack: 100,
     villainStack: 100,
     opponentsLeft: 1,
-    opponentStyle: 'LAG',
+    opponents: [{ style: 'LAG' }],
     actionHistory: [
       { street: 'preflop', actorPosition: 'CO', action: 'raise', size: 3, orderIndex: 0 },
     ],
@@ -60,7 +60,7 @@ const DEMO_HANDS: HandScenarioInput[] = [
     heroStack: 94,
     villainStack: 88,
     opponentsLeft: 1,
-    opponentStyle: 'TAG',
+    opponents: [{ style: 'TAG' }],
     actionHistory: [
       { street: 'preflop', actorPosition: 'CO', action: 'raise', size: 3, orderIndex: 0 },
       { street: 'preflop', actorPosition: 'BTN', action: 'call', size: 3, orderIndex: 1 },
@@ -78,7 +78,7 @@ const DEMO_HANDS: HandScenarioInput[] = [
     heroStack: 95,
     villainStack: 90,
     opponentsLeft: 1,
-    opponentStyle: 'tight-passive',
+    opponents: [{ style: 'tight-passive' }],
     actionHistory: [
       { street: 'preflop', actorPosition: 'BTN', action: 'raise', size: 3, orderIndex: 0 },
       { street: 'preflop', actorPosition: 'BB', action: 'call', size: 2, orderIndex: 1 },
@@ -96,7 +96,7 @@ const DEMO_HANDS: HandScenarioInput[] = [
     heroStack: 76,
     villainStack: 80,
     opponentsLeft: 1,
-    opponentStyle: 'LAG',
+    opponents: [{ style: 'LAG' }],
     actionHistory: [
       { street: 'preflop', actorPosition: 'CO', action: 'raise', size: 3, orderIndex: 0 },
       { street: 'preflop', actorPosition: 'BB', action: 'call', size: 2, orderIndex: 1 },
@@ -117,7 +117,7 @@ const DEMO_HANDS: HandScenarioInput[] = [
     heroStack: 55,
     villainStack: 40,
     opponentsLeft: 1,
-    opponentStyle: 'loose-passive',
+    opponents: [{ style: 'loose-passive' }],
     actionHistory: [
       { street: 'preflop', actorPosition: 'BTN', action: 'raise', size: 3, orderIndex: 0 },
       { street: 'preflop', actorPosition: 'BB', action: 'call', size: 2, orderIndex: 1 },
@@ -141,7 +141,7 @@ const DEMO_HANDS: HandScenarioInput[] = [
     heroStack: 40,
     villainStack: 45,
     opponentsLeft: 1,
-    opponentStyle: 'TAG',
+    opponents: [{ style: 'TAG' }],
     actionHistory: [
       { street: 'preflop', actorPosition: 'UTG', action: 'raise', size: 3, orderIndex: 0 },
       { street: 'preflop', actorPosition: 'CO', action: '3-bet', size: 9, orderIndex: 1 },
@@ -158,7 +158,7 @@ const DEMO_HANDS: HandScenarioInput[] = [
     heroStack: 100,
     villainStack: 100,
     opponentsLeft: 1,
-    opponentStyle: 'unknown',
+    opponents: [{ style: 'unknown' }],
     actionHistory: [
       { street: 'preflop', actorPosition: 'BTN', action: 'raise', size: 3, orderIndex: 0 },
     ],
@@ -174,7 +174,7 @@ const DEMO_HANDS: HandScenarioInput[] = [
     heroStack: 90,
     villainStack: 86,
     opponentsLeft: 1,
-    opponentStyle: 'TAG',
+    opponents: [{ style: 'TAG' }],
     actionHistory: [
       { street: 'preflop', actorPosition: 'CO', action: 'raise', size: 3, orderIndex: 0 },
       { street: 'preflop', actorPosition: 'BB', action: 'call', size: 2, orderIndex: 1 },
@@ -210,8 +210,7 @@ async function seed() {
         heroStack: input.heroStack,
         villainStack: input.villainStack,
         opponentsLeft: input.opponentsLeft,
-        opponentStyle: input.opponentStyle,
-        opponentRange: input.opponentRange ?? null,
+        opponents: input.opponents as any,
         actionHistory: input.actionHistory as any,
         recommendation: {
           create: {

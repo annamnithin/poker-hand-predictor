@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import { RANKS, SUITS, STREETS, POSITIONS, ACTION_TYPES, PLAYER_STYLES, TENDENCY_LABELS } from './types';
+import type { Card } from './types';
 
 // --- Card ---
 const rankEnum = z.enum(RANKS);
@@ -16,7 +17,8 @@ export const CardSchema = z
       return RANKS.includes(r) && SUITS.includes(s);
     },
     { message: 'Invalid card format. Use rank+suit like "Ah", "Ts"' }
-  );
+  )
+  .transform((val) => val as Card);
 
 // --- Street ---
 export const StreetSchema = z.enum(STREETS);
@@ -42,6 +44,13 @@ export const ActionHistoryEntrySchema = z.object({
   orderIndex: z.number().int().min(0),
 });
 
+// --- Opponent Profile ---
+export const OpponentProfileSchema = z.object({
+  style: PlayerStyleSchema,
+  range: z.string().optional(),
+  tendencyOverrides: z.array(TendencyLabelSchema).optional(),
+});
+
 // --- Full Hand Scenario Input ---
 export const HandScenarioInputSchema = z
   .object({
@@ -56,9 +65,7 @@ export const HandScenarioInputSchema = z
     villainStack: z.number().positive(),
     opponentsLeft: z.number().int().min(1).max(8),
     actionHistory: z.array(ActionHistoryEntrySchema),
-    opponentStyle: PlayerStyleSchema,
-    opponentRange: z.string().optional(),
-    tendencyOverrides: z.array(TendencyLabelSchema).optional(),
+    opponents: z.array(OpponentProfileSchema),
   })
   .superRefine((data, ctx) => {
     // Board card count must match street
@@ -84,6 +91,15 @@ export const HandScenarioInputSchema = z
         code: z.ZodIssueCode.custom,
         message: 'Duplicate cards detected between hero cards and board cards',
         path: ['heroCards'],
+      });
+    }
+
+    // Opponents array length must match opponentsLeft
+    if (data.opponents.length !== data.opponentsLeft) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: `opponents array length (${data.opponents.length}) must match opponentsLeft (${data.opponentsLeft})`,
+        path: ['opponents'],
       });
     }
 

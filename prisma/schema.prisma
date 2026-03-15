@@ -34,9 +34,8 @@ model HandScenario {
   villainStack    Float
   opponentsLeft   Int
 
-  // Opponent modeling
-  opponentStyle   String   @default("unknown") // TAG | LAG | tight-passive | loose-passive | unknown
-  opponentRange   String?  // optional explicit range label
+  // Opponent modeling — JSON array of OpponentProfile (one per active opponent)
+  opponents       Json     @default("[]")
 
   // Action history stored as JSON array of ActionHistoryEntry
   actionHistory   Json     @default("[]")

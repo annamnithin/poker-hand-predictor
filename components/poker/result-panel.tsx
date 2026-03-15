@@ -147,13 +147,26 @@ export function ResultPanel({ result, input, onSave, saving }: ResultPanelProps)
               <span className="text-slate-500">Stacks:</span>{' '}
               <span className="font-medium">Hero {input.heroStack} / Villain {input.villainStack}</span>
             </p>
-            <p>
-              <span className="text-slate-500">Opponent:</span>{' '}
-              <span className="font-medium capitalize">{input.opponentStyle}</span>
-              {input.opponentRange && (
-                <span className="ml-1 text-slate-400">({input.opponentRange})</span>
-              )}
-            </p>
+            {input.opponents.length === 1 ? (
+              <p>
+                <span className="text-slate-500">Opponent:</span>{' '}
+                <span className="font-medium capitalize">{input.opponents[0].style}</span>
+                {input.opponents[0].range && (
+                  <span className="ml-1 text-slate-400">({input.opponents[0].range})</span>
+                )}
+              </p>
+            ) : (
+              <div>
+                <span className="text-slate-500">Opponents:</span>
+                {input.opponents.map((opp, i) => (
+                  <p key={i} className="ml-2 text-sm">
+                    <span className="text-slate-400">{i + 1}.</span>{' '}
+                    <span className="font-medium capitalize">{opp.style}</span>
+                    {opp.range && <span className="ml-1 text-slate-400">({opp.range})</span>}
+                  </p>
+                ))}
+              </div>
+            )}
           </div>
         </CardContent>
       </Card>

@@ -3,13 +3,29 @@ import type {
   NormalizedScenario,
   RecommendationResult,
   EVBreakdown,
+  OpponentProfile,
+  PlayerStyle,
 } from '@/lib/domain/types';
-import { findStackBucket, inferActionLine } from '@/lib/ranges/range-lookup';
+import { findStackBucket, inferActionLine, opponentStyleModifier } from '@/lib/ranges/range-lookup';
 import { calculatePotOdds } from './pot-odds';
 import { calculateEV } from './ev-calculator';
 import { estimateEquity, getEquityRealizationFactor, estimateFoldEquity } from './equity';
 import { calculateConfidence, assessInputCompleteness } from './confidence';
 import { generateExplanation, generateBreakdownNotes } from './explanation';
+
+/**
+ * Pick the representative style from a list of opponents.
+ * Uses the opponent with the widest range (highest rangeWidthMult) as the
+ * conservative representative for equity calculations against the field.
+ */
+function primaryOpponentStyle(opponents: OpponentProfile[]): PlayerStyle {
+  if (opponents.length === 0) return 'unknown';
+  if (opponents.length === 1) return opponents[0].style;
+  return opponents.reduce((prev, curr) =>
+    opponentStyleModifier(curr.style).rangeWidthMult >= opponentStyleModifier(prev.style).rangeWidthMult
+      ? curr : prev
+  ).style;
+}
 
 // ============================================================
 // RECOMMENDATION ENGINE — Main entry point
@@ -48,7 +64,7 @@ export function normalizeScenario(input: HandScenarioInput): NormalizedScenario 
     amountToCallBB: input.amountToCall / bbSize,
     stackBucket,
     actionLine,
-    opponentStyle: input.opponentStyle,
+    opponentStyle: primaryOpponentStyle(input.opponents),
     opponentsLeft: input.opponentsLeft,
   };
 }
@@ -86,14 +102,13 @@ export function generateRecommendation(input: HandScenarioInput): Recommendation
   // Step 5: Calculate confidence
   const inputCompleteness = assessInputCompleteness({
     actionHistory: input.actionHistory,
-    opponentRange: input.opponentRange,
-    opponentStyle: input.opponentStyle,
+    opponents: input.opponents,
   });
 
   const confidence = calculateConfidence({
     ev,
     mappingQuality: equityResult.mappingQuality,
-    hasExplicitRange: !!input.opponentRange,
+    hasExplicitRange: input.opponents.some((o) => !!o.range),
     equityMethod: equityResult.method,
     inputCompleteness,
   });
@@ -104,7 +119,7 @@ export function generateRecommendation(input: HandScenarioInput): Recommendation
     breakdown,
     confidence,
     scenario.street,
-    scenario.opponentStyle,
+    input.opponents,
     scenario.actionLine
   );
 

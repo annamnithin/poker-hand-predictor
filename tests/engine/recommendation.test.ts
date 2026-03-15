@@ -15,7 +15,7 @@ const premiumPreflop: HandScenarioInput = {
   heroStack: 100,
   villainStack: 100,
   opponentsLeft: 1,
-  opponentStyle: 'unknown',
+  opponents: [{ style: 'unknown' }],
   actionHistory: [
     { street: 'preflop', actorPosition: 'CO', action: 'raise', size: 3, orderIndex: 0 },
   ],
@@ -32,7 +32,7 @@ const marginalHand: HandScenarioInput = {
   heroStack: 100,
   villainStack: 100,
   opponentsLeft: 5,
-  opponentStyle: 'TAG',
+  opponents: [{ style: 'TAG' }, { style: 'unknown' }, { style: 'unknown' }, { style: 'unknown' }, { style: 'unknown' }],
   actionHistory: [],
 };
 
@@ -141,12 +141,11 @@ describe('assessInputCompleteness', () => {
   it('should give higher completeness with more info', () => {
     const full = assessInputCompleteness({
       actionHistory: [{ dummy: true }],
-      opponentRange: 'top15%',
-      opponentStyle: 'TAG',
+      opponents: [{ style: 'TAG', range: 'top15%' }],
     });
     const minimal = assessInputCompleteness({
       actionHistory: [],
-      opponentStyle: 'unknown',
+      opponents: [{ style: 'unknown' }],
     });
     expect(full).toBeGreaterThan(minimal);
   });
@@ -169,11 +168,11 @@ describe('3-bet and 4-bet scenarios', () => {
       heroStack: 90,
       villainStack: 90,
       opponentsLeft: 1,
+      opponents: [{ style: 'TAG' }],
       actionHistory: [
         { street: 'preflop', actorPosition: 'CO', action: 'raise', size: 3, orderIndex: 0 },
         { street: 'preflop', actorPosition: 'BB', action: '3-bet', size: 10, orderIndex: 1 },
       ],
-      opponentStyle: 'TAG',
     };
 
     const result = generateRecommendation(input);
@@ -197,11 +196,11 @@ describe('3-bet and 4-bet scenarios', () => {
       heroStack: 90,
       villainStack: 90,
       opponentsLeft: 1,
+      opponents: [{ style: 'TAG' }],
       actionHistory: [
         { street: 'preflop', actorPosition: 'CO', action: 'raise', size: 3, orderIndex: 0 },
         { street: 'preflop', actorPosition: 'BB', action: '3-bet', size: 10, orderIndex: 1 },
       ],
-      opponentStyle: 'TAG',
     };
 
     const result = generateRecommendation(input);
@@ -225,8 +224,8 @@ describe('3-bet and 4-bet scenarios', () => {
       heroStack: 100,
       villainStack: 100,
       opponentsLeft: 3,
+      opponents: [{ style: 'unknown' }, { style: 'unknown' }, { style: 'unknown' }],
       actionHistory: [],
-      opponentStyle: 'unknown',
     };
 
     const vs3betInput: HandScenarioInput = {
@@ -260,12 +259,12 @@ describe('3-bet and 4-bet scenarios', () => {
       heroStack: 65,
       villainStack: 65,
       opponentsLeft: 1,
+      opponents: [{ style: 'TAG' }],
       actionHistory: [
         { street: 'preflop', actorPosition: 'BTN', action: 'raise', size: 3, orderIndex: 0 },
         { street: 'preflop', actorPosition: 'BB', action: '3-bet', size: 10, orderIndex: 1 },
         { street: 'preflop', actorPosition: 'BTN', action: '4-bet', size: 25, orderIndex: 2 },
       ],
-      opponentStyle: 'TAG',
     };
 
     const result = generateRecommendation(input);
@@ -287,11 +286,11 @@ describe('3-bet and 4-bet scenarios', () => {
       heroStack: 90,
       villainStack: 90,
       opponentsLeft: 1,
+      opponents: [{ style: 'unknown' }],
       actionHistory: [
         { street: 'preflop', actorPosition: 'CO', action: 'raise', size: 3, orderIndex: 0 },
         { street: 'preflop', actorPosition: 'BB', action: '3-bet', size: 10, orderIndex: 1 },
       ],
-      opponentStyle: 'unknown',
     };
 
     const result = generateRecommendation(input);

@@ -2,7 +2,7 @@ import { getHand } from '@/server/repositories/hand-repository';
 import { ResultPanel } from '@/components/poker/result-panel';
 import { Card, CardContent } from '@/components/ui/card';
 import Link from 'next/link';
-import type { HandScenarioInput, RecommendationResult, Card as CardType, ActionHistoryEntry, EVBreakdown } from '@/lib/domain/types';
+import type { HandScenarioInput, RecommendationResult, Card as CardType, ActionHistoryEntry, EVBreakdown, OpponentProfile } from '@/lib/domain/types';
 
 export default async function HandDetailPage({
   params,
@@ -43,9 +43,8 @@ export default async function HandDetailPage({
     heroStack: hand.heroStack,
     villainStack: hand.villainStack,
     opponentsLeft: hand.opponentsLeft,
-    opponentStyle: hand.opponentStyle as HandScenarioInput['opponentStyle'],
-    opponentRange: hand.opponentRange ?? undefined,
-    actionHistory: (hand.actionHistory as ActionHistoryEntry[]) ?? [],
+    opponents: (hand.opponents as unknown as OpponentProfile[]) ?? [{ style: 'unknown' }],
+    actionHistory: (hand.actionHistory as unknown as ActionHistoryEntry[]) ?? [],
   };
 
   const result: RecommendationResult = {
@@ -61,7 +60,7 @@ export default async function HandDetailPage({
     explanation: rec.explanation,
     abstractionNode: rec.abstractionNode,
     mappingQuality: rec.mappingQuality,
-    breakdown: rec.breakdown as EVBreakdown,
+    breakdown: rec.breakdown as unknown as EVBreakdown,
   };
 
   return (
