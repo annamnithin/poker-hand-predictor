@@ -22,8 +22,20 @@ import { ActionHistoryBuilder } from '@/components/poker/action-history-builder'
 import { ResultPanel } from '@/components/poker/result-panel';
 import { cn } from '@/lib/utils/cn';
 
+// Quick-fill presets for common live scenarios
+const QUICK_SCENARIOS = [
+  { label: 'BTN Open',    street: 'preflop' as Street, heroPosition: 'BTN' as Position, potSize: '3',    amountToCall: '0',   heroStack: '100', villainStack: '100' },
+  { label: 'vs 3-bet',   street: 'preflop' as Street, heroPosition: 'BTN' as Position, potSize: '12',   amountToCall: '9',   heroStack: '100', villainStack: '100' },
+  { label: 'SB vs BTN',  street: 'preflop' as Street, heroPosition: 'SB'  as Position, potSize: '5',    amountToCall: '2.5', heroStack: '100', villainStack: '100' },
+  { label: 'Flop IP',    street: 'flop'   as Street, heroPosition: 'BTN' as Position, potSize: '10',   amountToCall: '0',   heroStack: '90',  villainStack: '90'  },
+  { label: 'Flop OOP',   street: 'flop'   as Street, heroPosition: 'BB'  as Position, potSize: '10',   amountToCall: '6',   heroStack: '90',  villainStack: '90'  },
+  { label: 'Turn Barrel',street: 'turn'   as Street, heroPosition: 'BTN' as Position, potSize: '22',   amountToCall: '0',   heroStack: '78',  villainStack: '78'  },
+];
+
 export default function NewHandPage() {
   const router = useRouter();
+
+  const [liveMode, setLiveMode] = useState(false);
 
   // Form state
   const [street, setStreet] = useState<Street>('preflop');
@@ -32,12 +44,19 @@ export default function NewHandPage() {
   const [totalPlayers, setTotalPlayers] = useState(6);
   const [heroPosition, setHeroPosition] = useState<Position>('BTN');
   const [potSize, setPotSize] = useState('10');
-  const [amountToCall, setAmountToCall] = useState('3');
+  const [amountToCall, setAmountToCall] = useState('0');
   const [heroStack, setHeroStack] = useState('100');
   const [villainStack, setVillainStack] = useState('100');
   const [opponentsLeft, setOpponentsLeft] = useState(1);
   const [opponents, setOpponents] = useState<OpponentProfile[]>([{ style: 'unknown' }]);
   const [actionHistory, setActionHistory] = useState<ActionHistoryEntry[]>([]);
+
+  // Result state
+  const [result, setResult] = useState<RecommendationResult | null>(null);
+  const [inputSnapshot, setInputSnapshot] = useState<HandScenarioInput | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const handleOpponentsLeftChange = (n: number) => {
     setOpponentsLeft(n);
@@ -49,14 +68,6 @@ export default function NewHandPage() {
     });
   };
 
-  // Result state
-  const [result, setResult] = useState<RecommendationResult | null>(null);
-  const [inputSnapshot, setInputSnapshot] = useState<HandScenarioInput | null>(null);
-  const [loading, setLoading] = useState(false);
-  const [saving, setSaving] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-
-  // When street changes, clear board cards if they don't match
   const handleStreetChange = (newStreet: Street) => {
     setStreet(newStreet);
     const maxCards = BOARD_CARD_COUNT[newStreet];
@@ -65,8 +76,16 @@ export default function NewHandPage() {
     }
   };
 
-  // All cards already picked (for disabling in pickers)
-  const allSelectedCards = [...heroCards, ...boardCards];
+  const applyQuickScenario = (scenario: typeof QUICK_SCENARIOS[0]) => {
+    handleStreetChange(scenario.street);
+    setHeroPosition(scenario.heroPosition);
+    setPotSize(scenario.potSize);
+    setAmountToCall(scenario.amountToCall);
+    setHeroStack(scenario.heroStack);
+    setVillainStack(scenario.villainStack);
+    setResult(null);
+    setError(null);
+  };
 
   const buildInput = (): HandScenarioInput => ({
     street,
@@ -86,18 +105,12 @@ export default function NewHandPage() {
   const handleSubmit = async () => {
     setError(null);
     setResult(null);
-
-    // Quick client-side checks
-    if (heroCards.length !== 2) {
-      setError('Select exactly 2 hero cards.');
-      return;
-    }
+    if (heroCards.length !== 2) { setError('Select exactly 2 hero cards.'); return; }
     const expectedBoard = BOARD_CARD_COUNT[street];
     if (boardCards.length !== expectedBoard) {
-      setError(`${street} requires exactly ${expectedBoard} board cards.`);
+      setError(`${street} requires exactly ${expectedBoard} board card${expectedBoard !== 1 ? 's' : ''}.`);
       return;
     }
-
     setLoading(true);
     try {
       const input = buildInput();
@@ -106,21 +119,15 @@ export default function NewHandPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(input),
       });
-
       const data = await res.json();
       if (!res.ok) {
-        const details = data.details
-          ? typeof data.details === 'string'
-            ? data.details
-            : JSON.stringify(data.details, null, 2)
-          : '';
+        const details = data.details ? (typeof data.details === 'string' ? data.details : JSON.stringify(data.details, null, 2)) : '';
         setError(`${data.error || 'Failed to generate recommendation'}${details ? `\n${details}` : ''}`);
         return;
       }
-
       setResult(data.recommendation);
       setInputSnapshot(input);
-    } catch (e) {
+    } catch {
       setError('Network error. Please try again.');
     } finally {
       setLoading(false);
@@ -136,44 +143,75 @@ export default function NewHandPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(inputSnapshot),
       });
-
       if (res.ok) {
         const data = await res.json();
         router.push(`/hand/${data.hand.id}`);
       }
-    } catch (e) {
-      // silently fail save, user can retry
-    } finally {
+    } catch { /* silently fail */ } finally {
       setSaving(false);
     }
   };
 
   return (
-    <div className="space-y-6 pb-12">
-      <div>
-        <h1 className="text-2xl font-bold" style={{ fontFamily: 'var(--font-display)' }}>
-          Analyze Hand
-        </h1>
-        <p className="text-sm text-slate-500 mt-1">
-          Enter your hand details to get an EV-based recommendation with full breakdown.
-        </p>
+    <div className="space-y-5 pb-12">
+      {/* ─── Header ─── */}
+      <div className="flex items-start justify-between gap-4">
+        <div>
+          <h1 className="text-2xl font-bold" style={{ fontFamily: 'var(--font-display)' }}>
+            Analyze Hand
+          </h1>
+          <p className="text-sm text-slate-500 mt-0.5">
+            GTO-grounded recommendations with SPR, board texture, and exploitative adjustments.
+          </p>
+        </div>
+        <button
+          onClick={() => setLiveMode((v) => !v)}
+          className={cn(
+            'shrink-0 px-3 py-1.5 text-xs font-semibold rounded-full transition-all border',
+            liveMode
+              ? 'bg-emerald-600 text-white border-emerald-600'
+              : 'bg-white text-slate-600 border-slate-300 hover:border-emerald-400'
+          )}
+        >
+          {liveMode ? 'Live Mode ON' : 'Live Mode'}
+        </button>
       </div>
 
-      {/* Street selector */}
+      {/* ─── Quick Scenarios (Live Mode) ─── */}
+      {liveMode && (
+        <Card className="border-emerald-200 bg-emerald-50/40">
+          <CardHeader className="pb-2">
+            <CardTitle className="text-sm text-emerald-800">Quick Fill Scenarios</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="flex flex-wrap gap-2">
+              {QUICK_SCENARIOS.map((s) => (
+                <button
+                  key={s.label}
+                  onClick={() => applyQuickScenario(s)}
+                  className="px-3 py-1.5 text-xs font-medium rounded-lg bg-white border border-emerald-200 text-emerald-700 hover:bg-emerald-50 transition-all"
+                >
+                  {s.label}
+                </button>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
+      {/* ─── Street ─── */}
       <Card>
         <CardContent className="pt-5">
-          <label className="block text-sm font-medium text-slate-700 mb-2">Street</label>
-          <div className="flex gap-2">
+          <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Street</label>
+          <div className="flex gap-2 flex-wrap">
             {STREETS.map((s) => (
               <button
                 key={s}
                 type="button"
                 onClick={() => handleStreetChange(s)}
                 className={cn(
-                  'px-4 py-2 rounded-lg text-sm font-medium capitalize transition-all',
-                  street === s
-                    ? 'bg-emerald-600 text-white shadow-sm'
-                    : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                  'px-4 py-2 rounded-lg text-sm font-semibold capitalize transition-all',
+                  street === s ? 'bg-emerald-600 text-white shadow-sm' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
                 )}
               >
                 {s}
@@ -183,19 +221,11 @@ export default function NewHandPage() {
         </CardContent>
       </Card>
 
-      {/* Cards */}
+      {/* ─── Cards ─── */}
       <Card>
-        <CardHeader>
-          <CardTitle>Cards</CardTitle>
-        </CardHeader>
+        <CardHeader><CardTitle>Cards</CardTitle></CardHeader>
         <CardContent className="space-y-4">
-          <CardPicker
-            label="Hero Cards (2)"
-            maxCards={2}
-            selectedCards={heroCards}
-            disabledCards={boardCards}
-            onChange={setHeroCards}
-          />
+          <CardPicker label="Hero Cards (2)" maxCards={2} selectedCards={heroCards} disabledCards={boardCards} onChange={setHeroCards} />
           {street !== 'preflop' && (
             <CardPicker
               label={`Board Cards (${BOARD_CARD_COUNT[street]})`}
@@ -208,193 +238,155 @@ export default function NewHandPage() {
         </CardContent>
       </Card>
 
-      {/* Table & Position */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Table</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-            <Select
-              label="Hero Position"
-              value={heroPosition}
-              onChange={(e) => setHeroPosition(e.target.value as Position)}
-            >
-              {POSITIONS.map((p) => (
-                <option key={p} value={p}>{p}</option>
-              ))}
-            </Select>
-            <Select
-              label="Total Players"
-              value={totalPlayers}
-              onChange={(e) => {
-                const n = parseInt(e.target.value);
-                setTotalPlayers(n);
-                if (opponentsLeft >= n) {
-                  handleOpponentsLeftChange(n - 1);
-                }
-              }}
-            >
-              {[2, 3, 4, 5, 6, 7, 8, 9].map((n) => (
-                <option key={n} value={n}>{n}</option>
-              ))}
-            </Select>
-            <Select
-              label="Opponents Left"
-              value={opponentsLeft}
-              onChange={(e) => handleOpponentsLeftChange(parseInt(e.target.value))}
-            >
-              {Array.from({ length: totalPlayers - 1 }, (_, i) => i + 1).map((n) => (
-                <option key={n} value={n}>{n}</option>
-              ))}
-            </Select>
-          </div>
-        </CardContent>
-      </Card>
-
-      {/* Sizing */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Sizing</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="grid grid-cols-2 gap-3">
-            <Input
-              label="Pot Size"
-              type="number"
-              min={0}
-              step={0.5}
-              value={potSize}
-              onChange={(e) => setPotSize(e.target.value)}
-            />
-            <Input
-              label="Amount to Call"
-              type="number"
-              min={0}
-              step={0.5}
-              value={amountToCall}
-              onChange={(e) => setAmountToCall(e.target.value)}
-            />
-            <Input
-              label="Hero Stack"
-              type="number"
-              min={0}
-              step={1}
-              value={heroStack}
-              onChange={(e) => setHeroStack(e.target.value)}
-            />
-            <Input
-              label="Villain Stack"
-              type="number"
-              min={0}
-              step={1}
-              value={villainStack}
-              onChange={(e) => setVillainStack(e.target.value)}
-            />
-          </div>
-        </CardContent>
-      </Card>
-
-      {/* Opponent Profiles */}
-      <Card>
-        <CardHeader>
-          <CardTitle>
-            {opponentsLeft === 1 ? 'Opponent Profile' : `Opponent Profiles (${opponentsLeft})`}
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          {opponents.map((opp, i) => (
-            <div
-              key={i}
-              className={cn(
-                'rounded-xl border p-4 space-y-3',
-                opponentsLeft > 1
-                  ? 'border-slate-200 bg-slate-50/60'
-                  : 'border-transparent p-0'
-              )}
-            >
-              {opponentsLeft > 1 && (
-                <div className="flex items-center gap-2">
-                  <span className="w-6 h-6 rounded-full bg-emerald-100 text-emerald-700 text-xs font-bold flex items-center justify-center">
-                    {i + 1}
-                  </span>
-                  <p className="text-sm font-semibold text-slate-600">
-                    Opponent {i + 1}
-                  </p>
-                </div>
-              )}
-              <div className="grid grid-cols-2 gap-3">
-                <Select
-                  label="Player Style"
-                  value={opp.style}
-                  onChange={(e) => {
-                    const updated = [...opponents];
-                    updated[i] = { ...updated[i], style: e.target.value as PlayerStyle };
-                    setOpponents(updated);
-                  }}
-                >
-                  {PLAYER_STYLES.map((s) => (
-                    <option key={s} value={s}>{s}</option>
-                  ))}
-                </Select>
-                <Input
-                  label="Range (optional)"
-                  placeholder="e.g. top15%"
-                  value={opp.range ?? ''}
-                  onChange={(e) => {
-                    const updated = [...opponents];
-                    updated[i] = { ...updated[i], range: e.target.value || undefined };
-                    setOpponents(updated);
-                  }}
-                />
+      {/* ─── Compact Layout in Live Mode ─── */}
+      {liveMode ? (
+        <Card>
+          <CardHeader><CardTitle>Table & Sizing</CardTitle></CardHeader>
+          <CardContent className="space-y-4">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+              <Select label="Position" value={heroPosition} onChange={(e) => setHeroPosition(e.target.value as Position)}>
+                {POSITIONS.map((p) => <option key={p} value={p}>{p}</option>)}
+              </Select>
+              <Select label="Opponents" value={opponentsLeft} onChange={(e) => handleOpponentsLeftChange(parseInt(e.target.value))}>
+                {Array.from({ length: totalPlayers - 1 }, (_, i) => i + 1).map((n) => <option key={n} value={n}>{n}</option>)}
+              </Select>
+              <Input label="Pot (BB)" type="number" min={0} step={0.5} value={potSize} onChange={(e) => setPotSize(e.target.value)} />
+              <Input label="To Call (BB)" type="number" min={0} step={0.5} value={amountToCall} onChange={(e) => setAmountToCall(e.target.value)} />
+              <Input label="Hero Stack" type="number" min={0} step={1} value={heroStack} onChange={(e) => setHeroStack(e.target.value)} />
+              <Input label="Villain Stack" type="number" min={0} step={1} value={villainStack} onChange={(e) => setVillainStack(e.target.value)} />
+            </div>
+            {/* Quick opponent tendency picker */}
+            <div>
+              <label className="block text-xs font-medium text-slate-500 mb-1.5">Opponent Tendency</label>
+              <div className="flex gap-1.5 flex-wrap">
+                {(['unknown', 'TAG', 'LAG', 'tight-passive', 'loose-passive'] as PlayerStyle[]).map((style) => (
+                  <button
+                    key={style}
+                    type="button"
+                    onClick={() => setOpponents([{ style }])}
+                    className={cn(
+                      'px-2.5 py-1 text-xs font-medium rounded-full transition-all border',
+                      opponents[0]?.style === style
+                        ? 'bg-emerald-600 text-white border-emerald-600'
+                        : 'bg-white text-slate-600 border-slate-200 hover:border-slate-400'
+                    )}
+                  >
+                    {style}
+                  </button>
+                ))}
               </div>
             </div>
-          ))}
-        </CardContent>
-      </Card>
+          </CardContent>
+        </Card>
+      ) : (
+        <>
+          {/* Table */}
+          <Card>
+            <CardHeader><CardTitle>Table</CardTitle></CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                <Select label="Hero Position" value={heroPosition} onChange={(e) => setHeroPosition(e.target.value as Position)}>
+                  {POSITIONS.map((p) => <option key={p} value={p}>{p}</option>)}
+                </Select>
+                <Select label="Total Players" value={totalPlayers} onChange={(e) => {
+                  const n = parseInt(e.target.value);
+                  setTotalPlayers(n);
+                  if (opponentsLeft >= n) handleOpponentsLeftChange(n - 1);
+                }}>
+                  {[2,3,4,5,6,7,8,9].map((n) => <option key={n} value={n}>{n}</option>)}
+                </Select>
+                <Select label="Opponents Left" value={opponentsLeft} onChange={(e) => handleOpponentsLeftChange(parseInt(e.target.value))}>
+                  {Array.from({ length: totalPlayers - 1 }, (_, i) => i + 1).map((n) => <option key={n} value={n}>{n}</option>)}
+                </Select>
+              </div>
+            </CardContent>
+          </Card>
 
-      {/* Action History */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Action History</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <ActionHistoryBuilder
-            entries={actionHistory}
-            onChange={setActionHistory}
-            currentStreet={street}
-          />
-        </CardContent>
-      </Card>
+          {/* Sizing */}
+          <Card>
+            <CardHeader><CardTitle>Sizing</CardTitle></CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-2 gap-3">
+                <Input label="Pot Size (BB)" type="number" min={0} step={0.5} value={potSize} onChange={(e) => setPotSize(e.target.value)} />
+                <Input label="Amount to Call (0 = no bet)" type="number" min={0} step={0.5} value={amountToCall} onChange={(e) => setAmountToCall(e.target.value)} />
+                <Input label="Hero Stack (BB)" type="number" min={0} step={1} value={heroStack} onChange={(e) => setHeroStack(e.target.value)} />
+                <Input label="Villain Stack (BB)" type="number" min={0} step={1} value={villainStack} onChange={(e) => setVillainStack(e.target.value)} />
+              </div>
+            </CardContent>
+          </Card>
 
-      {/* Submit */}
+          {/* Opponent Profiles */}
+          <Card>
+            <CardHeader>
+              <CardTitle>{opponentsLeft === 1 ? 'Opponent Profile' : `Opponent Profiles (${opponentsLeft})`}</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              {opponents.map((opp, i) => (
+                <div key={i} className={cn('rounded-xl border p-4 space-y-3', opponentsLeft > 1 ? 'border-slate-200 bg-slate-50/60' : 'border-transparent p-0')}>
+                  {opponentsLeft > 1 && (
+                    <div className="flex items-center gap-2">
+                      <span className="w-6 h-6 rounded-full bg-emerald-100 text-emerald-700 text-xs font-bold flex items-center justify-center">{i + 1}</span>
+                      <p className="text-sm font-semibold text-slate-600">Opponent {i + 1}</p>
+                    </div>
+                  )}
+                  <div className="grid grid-cols-2 gap-3">
+                    <Select label="Player Style" value={opp.style} onChange={(e) => {
+                      const updated = [...opponents];
+                      updated[i] = { ...updated[i], style: e.target.value as PlayerStyle };
+                      setOpponents(updated);
+                    }}>
+                      {PLAYER_STYLES.map((s) => <option key={s} value={s}>{s}</option>)}
+                    </Select>
+                    <Input
+                      label="Range (optional)"
+                      placeholder="e.g. top15%"
+                      value={opp.range ?? ''}
+                      onChange={(e) => {
+                        const updated = [...opponents];
+                        updated[i] = { ...updated[i], range: e.target.value || undefined };
+                        setOpponents(updated);
+                      }}
+                    />
+                  </div>
+                </div>
+              ))}
+            </CardContent>
+          </Card>
+
+          {/* Action History */}
+          <Card>
+            <CardHeader><CardTitle>Action History</CardTitle></CardHeader>
+            <CardContent>
+              <ActionHistoryBuilder entries={actionHistory} onChange={setActionHistory} currentStreet={street} />
+            </CardContent>
+          </Card>
+        </>
+      )}
+
+      {/* ─── Error ─── */}
       {error && (
         <div className="bg-red-50 border border-red-200 rounded-xl px-4 py-3 text-sm text-red-700 whitespace-pre-wrap font-mono">
           {error}
         </div>
       )}
 
-      <Button
-        size="lg"
-        className="w-full"
-        onClick={handleSubmit}
-        disabled={loading}
-      >
-        {loading ? 'Analyzing...' : 'Get Recommendation'}
+      {/* ─── Submit ─── */}
+      <Button size="lg" className="w-full" onClick={handleSubmit} disabled={loading}>
+        {loading ? (
+          <span className="flex items-center gap-2 justify-center">
+            <span className="w-4 h-4 border-2 border-white/40 border-t-white rounded-full animate-spin" />
+            Analyzing...
+          </span>
+        ) : 'Get GTO Recommendation'}
       </Button>
 
-      {/* Result */}
+      {/* ─── Result ─── */}
       {result && inputSnapshot && (
-        <div className="mt-6">
+        <div className="mt-2">
           <h2 className="text-xl font-bold mb-4" style={{ fontFamily: 'var(--font-display)' }}>
-            Result
+            Recommendation
           </h2>
-          <ResultPanel
-            result={result}
-            input={inputSnapshot}
-            onSave={handleSave}
-            saving={saving}
-          />
+          <ResultPanel result={result} input={inputSnapshot} onSave={handleSave} saving={saving} />
         </div>
       )}
     </div>

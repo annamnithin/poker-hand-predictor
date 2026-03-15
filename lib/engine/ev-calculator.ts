@@ -1,115 +1,171 @@
-import type { NormalizedScenario, EVResult, BetSizeBucket } from '@/lib/domain/types';
-import { BET_SIZE_BUCKETS, DEFAULT_SIZING_PRESETS } from '@/lib/domain/types';
+import type { NormalizedScenario, EVResult } from '@/lib/domain/types';
+import { BET_SIZE_BUCKETS } from '@/lib/domain/types';
 import { calculatePotOdds } from './pot-odds';
 import { estimateEquity, getEquityRealizationFactor, estimateFoldEquity } from './equity';
+import { analyzeBoardTexture, getOptimalBetSizing } from './board-texture';
+import { evaluateBestHand } from './hand-evaluator';
+import { computeSPR } from './gto-advisor';
 
 // ============================================================
-// EV CALCULATOR — Core expected value computation
+// EV CALCULATOR — Five-action EV computation
+// Supports: fold, check, call, bet, raise
 // ============================================================
-// EV of Fold  = 0 (relative to the current decision point)
-// EV of Call  = (equity × potAfterCall) - amountToCall
-// EV of Raise = (foldEq × currentPot) + ((1-foldEq) × equity × potAfterRaiseCall) - raiseAmount
 
-/**
- * Calculate EV for all three action options: fold, call, raise.
- * Returns the EVResult with recommended action and sizing.
- */
 export function calculateEV(scenario: NormalizedScenario): EVResult {
-  const { potSizeBB, amountToCallBB, heroPosition, street, opponentStyle, actionLine } = scenario;
+  const { potSizeBB, amountToCallBB, heroPosition, street, opponentStyle, actionLine, boardCards, heroCards } = scenario;
 
-  // Estimate hero equity
   const equityResult = estimateEquity(scenario);
   const rawEquity = equityResult.equity;
   const realizationFactor = getEquityRealizationFactor(street, heroPosition);
   const realizedEquity = rawEquity * realizationFactor;
 
-  // --- EV of Fold ---
+  const board = analyzeBoardTexture(boardCards);
+  const handEval = evaluateBestHand(heroCards, boardCards);
+  const spr = computeSPR(scenario.effectiveStackBB, potSizeBB);
+
+  // Determine if there's a bet to face
+  const facingBet = amountToCallBB > 0;
+
+  // ---- EV of Fold (always 0 by definition) ----
   const evFold = 0;
 
-  // --- EV of Call ---
+  // ---- EV of Check (only valid when no bet to face) ----
+  // Check EV ≈ realizedEquity × future pot (estimated), with no chips invested
+  // Simplified: check gives the pot equity without immediate risk
+  const evCheck = facingBet ? -Infinity : realizedEquity * potSizeBB * 0.7;
+
+  // ---- EV of Call (only valid when facing a bet) ----
   const potAfterCall = potSizeBB + amountToCallBB;
-  const evCall = amountToCallBB === 0
-    ? 0
-    : realizedEquity * potAfterCall - amountToCallBB;
+  const evCall = !facingBet ? -Infinity
+    : amountToCallBB === 0
+      ? 0
+      : realizedEquity * potAfterCall - amountToCallBB;
 
-  // --- EV of Raise (evaluate best sizing) ---
-  // In 3-bet/4-bet pots, standard sizing shifts toward larger fractions.
-  // A 3-bet is typically ~3x the open raise, a 4-bet is ~2.2-2.5x the 3-bet.
-  // We model this by adjusting which sizing buckets are considered.
-  const sizingBuckets = getSizingBucketsForActionLine(actionLine);
+  // ---- EV of Raise (valid when facing a bet) ----
+  const raiseBuckets = getSizingBucketsForActionLine(actionLine, spr.category);
+  let evRaise = -Infinity;
+  let bestRaiseSizing: number | null = null;
+  let bestRaiseFraction: number | null = null;
 
-  const raiseResults = sizingBuckets.map((fraction) => {
-    const raiseAmount = potSizeBB * fraction;
+  if (facingBet) {
+    // Pot after call is the correct base for raise sizing
+    const potAfterCallBase = potSizeBB + amountToCallBB;
+    const minRaise = amountToCallBB * 2; // minimum raise = 2x the bet
 
-    const effectiveRaise = Math.min(raiseAmount, scenario.effectiveStackBB - amountToCallBB);
-    if (effectiveRaise <= 0) return { fraction, ev: -Infinity };
+    const raiseResults = raiseBuckets.map((fraction) => {
+      // Raise sizing expressed as % of pot-after-call (standard GTO convention)
+      const targetRaise = Math.max(minRaise, potAfterCallBase * fraction);
+      const effectiveRaise = Math.min(targetRaise, scenario.effectiveStackBB);
+      if (effectiveRaise <= amountToCallBB) return { fraction, ev: -Infinity, raiseAmount: 0 };
 
-    // Pass actionLine so fold equity accounts for 3-bet/4-bet dynamics
-    const foldEquity = estimateFoldEquity(fraction, opponentStyle, street, actionLine);
+      const foldEq = estimateFoldEquity(fraction, opponentStyle, street, actionLine, board.wetness);
+      const evWhenFold = foldEq * potSizeBB;
+      const potWhenCalled = potSizeBB + effectiveRaise + amountToCallBB; // pot if villain calls our raise
+      const evWhenCalled = (1 - foldEq) * (realizedEquity * potWhenCalled - effectiveRaise);
 
-    const evWhenFold = foldEquity * potSizeBB;
-    const potWhenCalled = potSizeBB + effectiveRaise + effectiveRaise;
-    const evWhenCalled = (1 - foldEquity) * (realizedEquity * potWhenCalled - effectiveRaise);
+      // Actual sizing fraction = raise amount relative to pot-after-call
+      const actualFraction = effectiveRaise / potAfterCallBase;
+      return { fraction: actualFraction, ev: evWhenFold + evWhenCalled, raiseAmount: effectiveRaise };
+    });
 
-    const totalEV = evWhenFold + evWhenCalled;
-    return { fraction, ev: totalEV, raiseAmount: effectiveRaise };
-  });
-
-  const bestRaise = raiseResults.reduce(
-    (best, curr) => (curr.ev > best.ev ? curr : best),
-    raiseResults[0]
-  );
-
-  const evRaise = bestRaise.ev;
-  const bestRaiseSizing = bestRaise.raiseAmount ?? null;
-  const bestRaiseFraction = bestRaise.fraction;
-
-  let bestAction: 'fold' | 'call' | 'raise';
-  if (evRaise >= evCall && evRaise >= evFold) {
-    bestAction = 'raise';
-  } else if (evCall >= evFold) {
-    bestAction = 'call';
-  } else {
-    bestAction = 'fold';
+    const bestRaise = raiseResults.reduce((b, c) => (c.ev > b.ev ? c : b), raiseResults[0]);
+    evRaise = bestRaise.ev;
+    bestRaiseSizing = bestRaise.ev > -Infinity ? round(bestRaise.raiseAmount, 2) : null;
+    bestRaiseFraction = bestRaise.ev > -Infinity ? round(bestRaise.fraction, 2) : null;
   }
 
-  if (amountToCallBB === 0 && bestAction === 'fold') {
-    bestAction = 'call';
+  // ---- EV of Bet (only valid when no bet to face) ----
+  const betBuckets = getBetSizingForBoard(board.wetness, board.pairStructure, street, handEval.category, handEval.draws.length > 0, spr.category);
+  let evBet = -Infinity;
+  let bestBetSizing: number | null = null;
+  let bestBetFraction: number | null = null;
+
+  if (!facingBet) {
+    const betResults = betBuckets.map((fraction) => {
+      const betAmount = potSizeBB * fraction;
+      const effectiveBet = Math.min(betAmount, scenario.effectiveStackBB);
+      if (effectiveBet <= 0) return { fraction, ev: -Infinity, betAmount: 0 };
+
+      const foldEq = estimateFoldEquity(fraction, opponentStyle, street, actionLine, board.wetness);
+      const evWhenFold = foldEq * potSizeBB;
+      const potWhenCalled = potSizeBB + effectiveBet * 2;
+      const evWhenCalled = (1 - foldEq) * (realizedEquity * potWhenCalled - effectiveBet);
+
+      return { fraction, ev: evWhenFold + evWhenCalled, betAmount: effectiveBet };
+    });
+
+    const bestBet = betResults.reduce((b, c) => (c.ev > b.ev ? c : b), betResults[0]);
+    evBet = bestBet.ev;
+    bestBetSizing = bestBet.ev > -Infinity ? round(bestBet.betAmount, 2) : null;
+    bestBetFraction = bestBet.ev > -Infinity ? bestBet.fraction : null;
+  }
+
+  // ---- Pick best action ----
+  const options = [
+    { action: 'fold' as const, ev: evFold },
+    { action: 'check' as const, ev: evCheck },
+    { action: 'call' as const, ev: evCall },
+    { action: 'bet' as const, ev: evBet },
+    { action: 'raise' as const, ev: evRaise },
+  ].filter((o) => o.ev > -Infinity);
+
+  let best = options.reduce((b, c) => (c.ev > b.ev ? c : b), options[0]);
+
+  // Rule: never fold when check is free (amountToCall === 0)
+  if (!facingBet && best.action === 'fold') {
+    best = { action: 'check', ev: evCheck };
   }
 
   return {
     evFold: round(evFold, 2),
-    evCall: round(evCall, 2),
-    evRaise: round(evRaise, 2),
-    bestAction,
-    bestRaiseSizing: bestRaiseSizing ? round(bestRaiseSizing, 2) : null,
-    bestRaiseFraction: bestRaiseFraction ?? null,
+    evCall: round(facingBet ? evCall : 0, 2),
+    evRaise: round(facingBet ? evRaise : 0, 2),
+    evCheck: round(!facingBet ? evCheck : 0, 2),
+    evBet: round(!facingBet ? evBet : 0, 2),
+    bestAction: best.action,
+    bestRaiseSizing,
+    bestRaiseFraction,
+    bestBetSizing,
+    bestBetFraction,
   };
 }
 
 /**
- * Select appropriate sizing buckets based on the action line.
- * In standard single-raise pots, all bet-size buckets are valid.
- * In 3-bet pots, sizing tilts larger (50%-pot and above).
- * In 4-bet pots, it's typically all-in or very large.
+ * Raise sizing buckets based on action line and SPR.
  */
-function getSizingBucketsForActionLine(actionLine?: string): readonly number[] {
+function getSizingBucketsForActionLine(actionLine: string | undefined, sprCategory: string): readonly number[] {
+  if (sprCategory === 'micro') return [1.0] as const; // pot-committed, just shove
   switch (actionLine) {
-    case '3bet-vs-open':
-      // Hero is 3-betting: typical 3-bet sizes are ~3x open, which is 75-100% pot
-      return [0.5, 0.66, 0.75, 1.0] as const;
-    case 'vs-3bet':
-      // Hero faces 3-bet, considering 4-betting: sizes are large, often all-in
-      return [0.66, 0.75, 1.0] as const;
-    case '4bet':
-      // Hero is 4-betting: typically 2-2.5x the 3-bet, very large relative to pot
-      return [0.75, 1.0] as const;
-    case 'vs-4bet':
-      // Hero faces 4-bet: it's call, fold, or shove
-      return [1.0] as const;
-    default:
-      return BET_SIZE_BUCKETS;
+    case '3bet-vs-open': return [0.5, 0.66, 0.75, 1.0] as const;
+    case 'vs-3bet':      return [0.66, 0.75, 1.0] as const;
+    case '4bet':         return [0.75, 1.0] as const;
+    case 'vs-4bet':      return [1.0] as const;
+    default:             return BET_SIZE_BUCKETS;
   }
+}
+
+/**
+ * Bet sizing buckets tuned to board texture and hand category.
+ */
+function getBetSizingForBoard(
+  wetness: string,
+  pairStructure: string,
+  street: string,
+  handCategory: string,
+  hasDraws: boolean,
+  sprCategory: string,
+): readonly number[] {
+  if (sprCategory === 'micro') return [1.0] as const;
+
+  // Default: smaller on wet, larger on dry
+  const wetBuckets = [0.25, 0.33, 0.50] as const;
+  const dryBuckets = [0.50, 0.66, 0.75] as const;
+  const riverBuckets = [0.50, 0.66, 0.75, 1.0] as const;
+
+  if (street === 'river') return riverBuckets;
+  if (wetness === 'very-wet' || wetness === 'wet') return wetBuckets;
+  if (wetness === 'dry') return dryBuckets;
+  return BET_SIZE_BUCKETS;
 }
 
 function round(n: number, decimals: number): number {

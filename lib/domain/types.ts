@@ -157,9 +157,13 @@ export interface EVResult {
   evFold: number;
   evCall: number;
   evRaise: number;
-  bestAction: 'fold' | 'call' | 'raise';
+  evCheck: number;
+  evBet: number;
+  bestAction: 'fold' | 'call' | 'raise' | 'check' | 'bet';
   bestRaiseSizing: number | null; // absolute chips
   bestRaiseFraction: number | null; // as pot fraction
+  bestBetSizing: number | null;
+  bestBetFraction: number | null;
 }
 
 export interface RecommendationResult {
@@ -169,6 +173,7 @@ export interface RecommendationResult {
   abstractionNode: string | null;
   mappingQuality: number;       // 0-1
   breakdown: EVBreakdown;
+  gtoContext?: GTOContext;       // rich GTO analysis
 }
 
 export interface EVBreakdown {
@@ -178,6 +183,32 @@ export interface EVBreakdown {
   foldEquity: number;           // estimated fold equity for raises
   villainContinueRange: string; // descriptive label
   notes: string[];
+}
+
+// --- GTO Context (rich postflop/preflop analysis) ---
+
+export interface GTOContext {
+  spr: number;
+  sprCategory: 'micro' | 'low' | 'medium' | 'deep';
+  isIP: boolean;
+  handDescription: string;      // e.g. "Top pair, ace kicker"
+  handCategory: string;         // 'monster' | 'strong' | 'medium' | 'weak-made' | 'draw-heavy' | 'air'
+  draws: Array<{
+    type: string;
+    description: string;
+    outs: number;
+    equity: number;
+  }>;
+  boardTexture?: {
+    wetness: string;
+    flushTexture: string;
+    connectedness: string;
+    pairStructure: string;
+    description: string;
+  };
+  exploitLabel?: string;
+  exploitReasoning?: string;
+  gtoFrequency?: number;        // 0-1, how often GTO plays this action
 }
 
 // --- Range Data Format ---
