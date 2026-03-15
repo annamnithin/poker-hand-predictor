@@ -109,7 +109,12 @@ export default function NewHandPage() {
 
       const data = await res.json();
       if (!res.ok) {
-        setError(data.error || 'Failed to generate recommendation');
+        const details = data.details
+          ? typeof data.details === 'string'
+            ? data.details
+            : JSON.stringify(data.details, null, 2)
+          : '';
+        setError(`${data.error || 'Failed to generate recommendation'}${details ? `\n${details}` : ''}`);
         return;
       }
 
@@ -222,7 +227,13 @@ export default function NewHandPage() {
             <Select
               label="Total Players"
               value={totalPlayers}
-              onChange={(e) => setTotalPlayers(parseInt(e.target.value))}
+              onChange={(e) => {
+                const n = parseInt(e.target.value);
+                setTotalPlayers(n);
+                if (opponentsLeft >= n) {
+                  handleOpponentsLeftChange(n - 1);
+                }
+              }}
             >
               {[2, 3, 4, 5, 6, 7, 8, 9].map((n) => (
                 <option key={n} value={n}>{n}</option>
@@ -348,7 +359,7 @@ export default function NewHandPage() {
 
       {/* Submit */}
       {error && (
-        <div className="bg-red-50 border border-red-200 rounded-xl px-4 py-3 text-sm text-red-700">
+        <div className="bg-red-50 border border-red-200 rounded-xl px-4 py-3 text-sm text-red-700 whitespace-pre-wrap font-mono">
           {error}
         </div>
       )}
